@@ -1,0 +1,331 @@
+% Adrián játék
+% (Az Ajánló javítva és frissítve: 2015-05-29)
+%
+% Begginning of full license text ------------------------------
+%
+%          DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+%                  Version 2, December 2004
+%
+% Copyright (C) 2004 Sam Hocevar <sam@hocevar.net>
+%
+% Everyone is permitted to copy and distribute verbatim or
+% modifiedcopies of this license document, and changing it is
+% allowed as long as the name is changed.
+%
+%          DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+%        TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION
+%                       AND MODIFICATION
+%
+%  0. You just DO WHAT THE FUCK YOU WANT TO.
+%
+% End of full license text -------------------------------------
+
+% A fordításhoz az 1.5-ös magyar.ldf szükséges:
+% http://www.math.bme.hu/latex/
+
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage{anysize}
+\usepackage{paralist}
+
+\def\magyarOptions{defaults=prettiest,afterindent=force-yes,labelenums=hu-a,frenchspacing=yes}
+\usepackage[magyar]{babel}
+
+\marginsize{3cm}{3cm}{2.5cm}{2.5cm}
+\addtolength\topmargin{-\headheight}\addtolength\topmargin{-\headsep}
+\addtolength\textheight{\headheight}\addtolength\textheight{\headsep}
+\addtolength\textheight{\footskip}
+
+\expandafter\ifx\csname pdfoutput\endcsname\relax\chardef\pdfoutput0\fi
+\ifnum0<\pdfoutput \pdfcompresslevel9
+  \pdfpageheight\paperheight \pdfpagewidth\paperwidth
+\else \special{papersize=\the\paperwidth,\the\paperheight}\fi
+
+\tolerance=10000
+\itemsep=0pt
+\def\bfdefault{b}
+
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+
+\newcommand{\adrian}[1]{
+\setlength{\unitlength}{#1}
+\begin{picture}(4,4)
+\put(0,0){\line(1,0){4}}
+\put(0,4){\line(1,0){4}}
+\put(0,0){\line(0,1){4}}
+\put(4,0){\line(0,1){4}}
+\end{picture}}
+
+\newcommand{\adrianpelda}[1]{
+\setlength{\unitlength}{#1}
+\begin{picture}(9,9)
+\put(3,0){\line(1,0){3}}
+\put(1,1){\line(1,0){1}}
+\put(3,1){\line(1,0){3}}
+\put(7,1){\line(1,0){1}}
+\put(1,2){\line(1,0){1}}
+\put(3,2){\line(1,0){3}}
+\put(7,2){\line(1,0){1}}
+\put(0,3){\line(1,0){9}}
+\put(0,4){\line(1,0){9}}
+\put(0,5){\line(1,0){9}}
+\put(0,6){\line(1,0){9}}
+\put(1,7){\line(1,0){1}}
+\put(3,7){\line(1,0){3}}
+\put(7,7){\line(1,0){1}}
+\put(1,8){\line(1,0){1}}
+\put(3,8){\line(1,0){3}}
+\put(7,8){\line(1,0){1}}
+\put(3,9){\line(1,0){3}}
+\put(0,3){\line(0,1){3}}
+\put(1,1){\line(0,1){1}}
+\put(1,3){\line(0,1){3}}
+\put(1,7){\line(0,1){1}}
+\put(2,1){\line(0,1){1}}
+\put(2,3){\line(0,1){3}}
+\put(2,7){\line(0,1){1}}
+\put(3,0){\line(0,1){9}}
+\put(4,0){\line(0,1){9}}
+\put(5,0){\line(0,1){9}}
+\put(6,0){\line(0,1){9}}
+\put(7,1){\line(0,1){1}}
+\put(7,3){\line(0,1){3}}
+\put(7,7){\line(0,1){1}}
+\put(8,1){\line(0,1){1}}
+\put(8,3){\line(0,1){3}}
+\put(8,7){\line(0,1){1}}
+\put(9,3){\line(0,1){3}}
+\end{picture}}
+
+\newcommand{\goallas}[1]{
+\setlength{\unitlength}{#1}
+\begin{picture}(3,3)
+\put(0,0){\line(1,0){3}}
+\put(0,1){\line(1,0){3}}
+\put(0,2){\line(1,0){3}}
+\put(0,3){\line(1,0){3}}
+\put(0,0){\line(0,1){3}}
+\put(1,0){\line(0,1){3}}
+\put(2,0){\line(0,1){3}}
+\put(3,0){\line(0,1){3}}
+\put(0.5,0.5){\circle*{0.75}}
+\put(1.5,0.5){\circle*{0.75}}
+\put(0.5,1.5){\circle*{0.75}}
+\put(2.5,1.5){\circle*{0.75}}
+\put(1.5,1.5){\circle{0.75}}
+\put(2.5,2.5){\circle{0.75}}
+\end{picture}}
+
+\begin{document}
+
+\begin{center}
+\Huge\textbf{Az~Adrián játék}
+\end{center}
+
+\vspace{18pt}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{12pt plus 3pt minus 2pt}
+
+A~játékosok száma: amennyi játékosunk van.
+
+A~tábla alapegysége:
+
+\begin{center}
+\adrian{0.5cm}
+\end{center}
+
+A~játéktábla a fenti alapegység másolataiból alakítható ki.
+A~négyzeteknek nem muszáj azonos méretűeknek lenniük.
+Íme egy a végtelen sok lehetőség közül:
+
+\begin{center}
+\adrianpelda{0.5cm}
+\end{center}
+
+Az~így kialakított tábla közös megegyezés alapján színezhető.
+
+A~játék bábuit és más kellékeit a játékosok közös megegyezéssel választják ki.
+
+A~játék indulóállását a játékosok közös megegyezéssel alakítják ki.
+
+Az~egyes lépések érvényességéről a játékosok valamilyen közös megegyezés alapján kiválasztott formában döntenek.
+Ilyenek lehetnek például:
+
+\begin{compactitem}[--]
+\item kellő tiltakozás hiánya,
+\item demokratikus szavazás,
+\item meggyőzés, alku,
+\item vagy akár ezek kombinációja.
+\end{compactitem}
+
+Amikor egy lépés általánosan elfogadottá válik, akkor abból a játékosok egyhangú döntéssel \emph{szabályt} alkothatnak.
+
+A~játék vége és célja a játékosok egyhangú döntése alapján határozódik meg, nem szükségképpen a játék megkezdése előtt.
+
+\section*{Ajánló az Adrián játékhoz}
+
+\setlength{\parindent}{1em}
+\setlength{\parskip}{0pt plus 2pt minus 1pt}
+
+Egyszer egy nyugati archeológus asszony egy bennszülött törzsnek meg akarta mutatni, hogy miként játszik a civilizált világ.
+Ütőket osztott szét, kapukat alakítottak ki, majd odaadta a labdát és elmagyarázta a szabályokat.
+A~törzs tagjai kipróbálván a játékot, rövid idő elteltével felháborodtak és távoztak.
+Később, miután hajlandóak voltak ismét szóba állni az asszonnyal, elmondták neki, hogy ők még olyan játékról sohasem hallottak, amelyiknek a végén csak az egyik fél örül.\footnote[1]{Mindezt egy barátom mesélte. Az~eredeti forrást nem találtam, de ha valaki ismeri, attól örömmel fogadom. Ennek hiányában a történetet tekintsük mesének.}
+
+A~versengés korát éljük.
+Versenyeztetnek minket az iskolában, a testmozgásban, a munkánkban, a fogyasztói döntéseinkben, és még ki tudja mennyi mindenben?
+Gazdasági modellünk versengés alapú, amelyben a tökéletes verseny ideája központi szerepet tölt be, azt sugallva, hogy a verseny jó.
+A vállalatoknak versenytársaik vannak, és a harc a piaci részesedésért és a mind magasabb profitért folyik.
+Belpolitikai rendszerünk a vetélkedésre épül, melyben a választói szavazatokért folyik a verseny.
+Iskoláink osztályoznak, rangsorolnak és felvételiztetnek.
+A már említett válallatok ugyanezt teszik a dolgozóikkal.
+A médiaorgánumok az olvasókért és a nézőkért versengenek.
+A sport világából is a versenyzés jótékony volta sugárzik.
+Az egészséges verseny közismert szólás lett.
+
+Mi a versengés következménye?
+A versengés bizonyosan felgyorsít.
+Aki pedig hajt, az egyrészt kimerül, másrészt elmegy a részletek mellett.
+A versengés szinte mindig kevés dimenziós térben történik (gyakran csupán egyben), és ami azon kívül van, arra egy versenyző legfeljebb mint az eredményességet segítő vagy nehezítő tényezőre képes tekinteni, nem foglalkozva annak belső értékével.
+
+A vállalatok és az országok szennyezik a környezetet.
+A termékek nagy részénél a minőség csak sokadik szempontként szerepelt a tervezés során, sőt a tervezett elavulással már egyenesen a rossz minőségben váltak érdekelté a gyártók.
+Az élelmiszerek lassan mérgezik az embert, mert a beltartalom másodlagos; cél a tetszetős külső és a nagy mennyiség.
+A politikai erők nem képesek érdemi reformok véghezvitelére, de még valamilyen etikához való tartós kötődés kialakítására sem, az ugyanis gátolja a szavazatok szerzését vagy egyenesen azok csökkenéséhez vezet.
+Az iskola uniformizál, és véleményem szerint nem képes megfelelően kibontakoztatni az egyéni képességeket.
+Amikor az iskolát a gazdasági nyomás a diákok létszámának maximálásában teszi érdekeltté, ott a minőségi oktatás másodlagossá válik.
+A média hasonló cipőben jár.
+A sportszerűség mögül kiveszett a régi tartalom, amikor világversenyeken sok millió néző szeme láttára rugdossák és köpködik egymást sportolók, vagy akár csak elképzelhetetlené váltak olyan hajdan volt események, mint például, hogy a teljes Tour de France mezőny egyszer csak a kerékpárokat félretéve bemenjen egy tóba egy kicsit felfrissülni.
+
+Valahol elveszett a minőség ebben a ki tudja mikor kezdődött hajszában.
+A felgyorsult tempó mellett pedig vissza már nagyon nehezen tér.
+Sokan úgy emlékeznek két-három évtizeddel ezelőttre, hogy akkoriban sokkal többet találkoztak a családtagokkal, barátokkal.
+A~verseny individualizál, elszakít, kifacsar, szolgává tesz.
+Sokan nem tarták képesnek magukat arra, hogy végighalgassanak egy zenei albumot az elejétől a végéig, minden mást kizárva.
+A~verseny miatt nincs idő kikapcsolódásra, másra, a verseny miatt nehéz behozni önmagunkat.
+A~verseny nem enged elmélyülni, felszínessé tesz és elbutít.
+A~verseny stresszel, hajszol és ezzel megbetegít.
+
+Ráadásul a verseny és az erőszak rokonságban vannak egymással, hiszen az erőszak a gyengébben való felülkerekedés felett érzett öröm szélsőséges kiélése.
+
+Érdekes, hogy a matematikának van modellje a versengés és az együttműködés összevetésére, ez pedig a fogolydilemma játék:
+
+\begin{center}
+\begin{tabular}{l@{\ \vline\ }cc}
+  & \emph{K}      & \emph{V}\\
+\hline
+\emph{K} & nyer-nyer & veszt-többet nyer\\
+\emph{V} & többet nyer-veszt & kevesebbet nyer-kevesebbet nyer
+\end{tabular}
+\end{center}
+
+Az első játékos a sorokban, a második az oszlopokban mozog, a lehetséges stratégiák pedig \emph{K}, mint kooperál, és \emph{V}, mint verseng.
+Látható, hogy ha a mindkét fél együttműködik, akkor többet nyernek, mint versengés esetén.
+Még többet nyerhet viszont valaki a másik együttműködő fél megcsalásával.
+A megcsalatástól való félelem miatt egyensúlyi stratégia a közös versengés, jobb ugyanis kevesebbet nyerni, mint semmit sem.
+
+A fenti modellnek még sok érdekes következménye van, amibe nem mélyedek bele.
+Legyen most elég annyi, hogy a kooperáció csak akkor működik megbízhatóan, ha nagyfokú bizalom van a felek között, és ezt ápolják is.
+Ebbe beletartozik a megbocsátás is, mint a megcsalatás utáni újbóli kooperáció.
+Ha ugyanis a fenti játékot sokszor kell lejátszani egymás után, akkor már érdemesebb megcélozni a közös kooperációt.
+
+Mikor \emph{kell} ezt a játékot sokszor lejátszani?
+Ha össze vagyunk kötve valakivel.
+Ilyen valaki a párunk.
+De ilyen lehet a kisebb-nagyobb közösségünk is, elsősorban a családunk.
+
+Ha azonban mégsem olyan erős ez a kötés, mert igen könnyű válni vagy távolra költözni, akkor erős a kísértés a csalásra, illetve megcsalatás esetén a kihátrálásra megbocsátás helyett.
+Mégis belemélyedtem egy kicsit.
+
+Mindezt megfontolva célszerű felismerni a kooperáció fontosságát és elősegíteni ezt a felismerést mások -- elsősorban partnereink -- számára is.
+Versengő civilizációnk ellenszelében ez nem könnyű.
+
+Azok a befelé kooperáló ám kifelé versengő közösségek, ahol ez a felismerés megtörtént, gyakran jelentős sikereket képesek elérni más csoportokkal szemben.
+Azok pedig, akik kifelé nem versengenek, az együttműködésből valami egyedit merítenek.
+
+Korunk trendje ezzel szemben éppen az emberi kapcsolatok lazulása, a családi, vallási, és más közösségek hanyatlása, és ezáltal az egyes ember mind nagyobb fokú kiszolgáltatottsága.
+Ezt az állapotot a fogyasztói társadalom jó marketinggel ügyesen feletteti.
+Úgy tűnik, hogy sokan a saját szabadságfokuk csökkenését vagy növekedését elsősorban a pénzbeni vagyonukkal való összefüggésben élik meg, nem pedig azon embertársaik számában, akikre bizton számíthatnak.
+A~nem vagyonos rétegek tagjainak akkor van esélyük, ha nem egyénileg küzdenek a felemelkedésükért, hanem felismerik az együttműködő csoportok erejét, és ilyenekbe tömörülnek.
+Egy jól kooperáló csoport tagjai korábban elérhetetlen erők birtokosaivá válhatnak.
+Viszont ha az együttműködés csak látszólagos, akkor könnyen előfordulhat, hogy az igazságtalan csoport egyes tagjai számára a tagság inkább káros lesz, mint hasznos.
+
+Bízom benne, hogy a játék egy olyan ősi eszköz, ami kiválóan alkalmas az emberi kapcsolatok szorosabbá tételére, az egymás iránti bizalom elmélyítésére, és az együttműködés mind hatékonyabbá tételére.
+Hát még ha a játék eleve ilyen céllal készült!
+
+Sajnos viszont a legtöbb mai játék szintén verseny (vagy erőszak) alapú.
+A kártya és a táblás játékok szinte mind versengők, a videojátékok pedig erőszakosak vagy szintén versengők.
+A sportjátékok versengők.
+A szerepjátékok bár kooperatívak, de erőszakosak, és főleg ezeket játszák a gyermekek.
+Mentségükre legyen mondva, a felnőtteket utánozzák.
+A szédüléses játékok általában individuálisak vagy károsak, még ha közösen is végzik azokat, gondolok itt a kábítószerezésre.
+Talán az építés és a zenélés őrizte meg a leginkább kooperativ jellegét.
+
+Nos, az Adrián játék építőjáték, játékot építő játék.
+Mint ilyen, még ha az épített alsó játék versengő is, a felső játék mindig együttműködő marad.
+A versenyjellegnek így nem marad éle.
+Ha a felső játékban mindenki egyenrangú, akkor az alsó játék kiegyenlített lesz.
+Ezzel egy súlycsoportba kerülhet egy öt éves gyermek és professzor apukája, mindkét fél szórakozására.
+
+Nagyon érdekesnek találom a nők általam tapasztalt hozzáállását a versengő társasjátékokhoz.
+Azt vettem észre, hogy ha játszanak is, azt inkább a társaság miatt teszik, a játék során pedig időnként felületes, jószívű, vagy tisztán intuitív, nem racionális döntéseket hoznak.
+Ezt mi férfiak rendre nem értjük, hiszen mi inkább az optimális -- vagy elég jó -- választ keressük, és abban nyerünk kielégülést ha azt sikerül megtalálni és alkalmazni.
+Valójában a jó döntések egymásnak való prezentálásából űzünk sportot.
+Ezzel szemben a nőknek a játék fogalma valószínűleg talán anyai szerepük miatt is kevésbé szakad el a gyermeki játék világától, így őket fárasztja, ha az valami tökéletes kereséséből kell álljon, és például valószínűség-optimalizálást kellene végezniük könnyed szórakozás helyett.
+Az Adrián játékkal viszont közösen szórakozhat egy öt éves gyermek, a professzor apuka, és a képzőművész anyuka.
+
+A~\emph{Go} az emberiség ősi táblás játékai közül az egyik legkiemelkedőbb.
+Keletkezéséről különféle legendák mesélnek.
+Az~egyik verzió szerint két testvér az örökölt föld elosztására használta.
+Hogy hogyan tették ezt?
+
+Mivel nemrég hallottak az Adrián játékról, úgy döntöttek, hogy kipróbálják.
+Megállapodtak abban, hogy azért játszák ezt a játékot, hogy elosszák az örökölt 169 holdas, négyzet alakú területet.
+Belekarcoltak hát egy 13x13-as négyzetrácsos ,,táblát'' a talajba.
+Úgy döntöttek, hogy addig játszanak, amíg minden mezőről pontosan megállapítható lesz, hogy melyikükhöz tartozik.
+Köveket gyűjtöttek, és az egyikük a világosakat, másikuk a sötéteket vette magához.
+El is kezdhettek játszani.
+Az~egyik testvér találomra letette a kövét valahova, majd a másik is.
+Rakogatták a köveket, igyekeztek területeket elkerítgetni maguknak.
+Aztán amikor már igen sok kő lent volt a földön, az egyikük a következő állásrészletet fedezte fel:
+
+\begin{center}
+\goallas{0.5cm}
+\end{center}
+
+Mivel ő volt a sötét kövekkel, fogta magát, és letette a magáét a felső középső négyzetbe, majd levette testvére közrefogott kövét. Amaz erre felvonta szemöldökét, kicsit elgondolkodott, végül finoman bólintott.
+Este úgy döntöttek, hogy ez a játék még nem alakult ki tökéletesen, ezért a föld elosztását majd akkor fogják élesben lejátszani, amikor már jól lefektetett szabályaik lesznek.
+A~foglyok -- így nevezték el a levett köveket -- ejtésének szabályát meg is fogalmazták.
+Másnap már nem is az Adrián játékot, sokkal inkább a saját játékukat fejlesztették tovább.
+Később az évek során készítettek egy második játéktáblát is, mert rájöttek, hogy asztalon játszva a kis köveket szerencsésebb a csomópontokra helyezni, mint a négyzetek közepébe.
+Egyszer végtelen ciklusba is kerültek, és egy frappáns szabályt alkottak annak jövőbeni elkerülésére.
+Megtanulták az alakzatokban a szemek szerepét, és sok más csodálatos dolgot.
+Az örökölt föld sohasem lett felosztva, azon mindig közösen dolgoztak, ahogy e nagyszerű játék tökéletesítésén is.
+
+Úgy gondolom, hogy a kooperáció újrafelfedezésre vár.
+Meg kell tanuljunk együttműködni egymással, de a hozzánk közel állókkal mindenképp.
+
+Az~Adrián játék ötlete úgy született, hogy egy barátnál elkezdtünk \emph{Ki nevet a végén?}-t játszani egy óriás pizzásdobozon mindenféle konyhában talált tárgyakból kinevezett bábukkal, mikor is valaki (Adrián Zs.) javasolta, hogy legyen érvényes minden lépés, ami ellen nem tiltakoznak legalább ketten.
+A~kockákat kockacukorból készítettük és elkezdtünk játszani a hagyományos szabályok szerint.
+Hamarosan viszont érkeztek az egyéni megoldások.
+Valaki keresztbe lépett a pályán.
+A~lemaradó játékosokkal engedékenyebbek voltunk természetesen.
+Óvatosan kellett azonban bánni azzal, hogy milyen új típusú lépésre adja valaki az áldását, hiszen minden elfogadott új akció egyben egy laza precedenst is teremtett.
+Ez még nem tette szabályossá azt a bizonyos lépést, de azért erősítette annak legitimitását.
+Természetesen olyan egyszer sem történt, hogy bárki szót emelt volna egy az eredeti szabályok szerinti lépés ellen.
+Ennek ellenére a vége felé már alig hasonlított a \emph{Ki nevet a végén?}-hez az, amit játszottunk.
+Volt, hogy valaki bekapta a másik bábuját, ami egy cukorka volt.
+Jót nevettünk ezen, hiszen tiltakozni már késő volt.
+A játék így mindvégig nagyon szoros maradt, és igazából semmilyen jelentősége nem volt annak, hogy melyikünk nyert.
+Ugyanakkor mindnyájan igen jól szórakoztunk.
+
+Javaslom tehát az Adrián játék kipróbálását családi vagy baráti körben.
+Szeretném ösztönözni Önöket arra, hogy találják és fejlesszék ki vele a saját játékukat.
+Egy olyan játékot, melyben mindenkinek azonos szerepe és esélye van, és a versengés szorongató érzésének mellékhatásaitól mentesen fedezheti fel a közös szórakozás örömét.
+
+\par\raggedleft hosszúhetényi Szieberth Ádám\\
+harmadik változat, 2017 december 15.
+\end{document}
