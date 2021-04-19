@@ -1,0 +1,60 @@
+\documentclass[12pt,b5paper]{article}
+\usepackage{anysize}
+\marginsize{3cm}{3cm}{3cm}{3cm}
+\addtolength\topmargin {-\headheight} \addtolength\topmargin {-\headsep}
+\addtolength\textheight{\headheight} \addtolength\textheight{\headsep}
+\addtolength\textheight{\footskip}
+
+\expandafter\ifx\csname pdfoutput\endcsname\relax\chardef\pdfoutput0 \fi
+\ifnum0<\pdfoutput \pdfcompresslevel9
+  \pdfpageheight\paperheight \pdfpagewidth\paperwidth
+\else \special{papersize=\the\paperwidth,\the\paperheight}\fi
+
+\usepackage[latin2]{inputenc}
+\usepackage[T1]{fontenc}
+\def\magyarOptions {defaults=prettiest,hyphenation=huhyphn,afterindent=force-yes,labelenums=hu-a,frenchspacing=yes}
+\usepackage[magyar]{babel}
+\usepackage{calc}
+
+\newcommand*{\bejegy}[1]{\vspace*{11pt}\par\noindent\Large\textit{\emitdate{b}{#1}}\normalsize\par}
+\newcommand*{\Juditnak}[1]{\par{}Juditnak: \textit{#1}\par}
+
+\newenvironment{vrs}[1]
+{\setlength{\Vers}{0pt}\settowidth{\Vers}{#1}\setlength{\VersKi}{(\textwidth-\Vers)/2}
+\hspace{\VersKi}\normalsize\begin{minipage}{\textwidth-\VersKi}}{\end{minipage}}
+
+\newenvironment{Vrs}[2]
+{\vspace*{12pt}\begin{center}\normalsize\textsc{\MakeUppercase{#1}}\end{center}\normalsize\begin{vrs}{#2}}
+{\end{vrs}}
+
+\newenvironment{vers}[3]
+{\begin{center}\LARGE\textit{#1}\end{center}\begin{Vrs}{#2}{#3}}
+{\end{Vrs}}
+
+\newlength{\Vers}
+\newlength{\VersKi}
+
+\tolerance=10000
+\hyphenpenalty=0
+\clubpenalty=8000
+\widowpenalty=8000
+\itemsep=0pt
+\def\bfdefault{b}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 1pt}
+\thispagestyle{empty}
+
+\begin{document}
+
+\begin{vers}{Szieberth Ádám}{Modern ember esti verse}{A fejleményekrõl beszámolok}
+Ma sem tettem semmit\\*
+Ma sem változtam\\*
+
+De holnap fogok\\*
+A fejleményekrõl beszámolok\\*
+
+Halhatatlan vagyok\\*
+Halhatatlan vagyok?\\*
+\end{vers}
+
+\end{document}
