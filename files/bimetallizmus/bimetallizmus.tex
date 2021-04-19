@@ -1,0 +1,361 @@
+\documentclass[12pt,a4paper]{article}
+
+%%% MARGÓK BEÁLLÍTÁSAI
+\usepackage{anysize}
+\marginsize{3cm}{3cm}{3cm}{3cm}
+%% Az élõfejre és élõlábra ne, csak a fõszövegre vonatkozzon:
+\addtolength\topmargin {-\headheight} \addtolength\topmargin {-\headsep}
+\addtolength\textheight{\headheight} \addtolength\textheight{\headsep}
+\addtolength\textheight{\footskip}
+%% End of 'Az élõfejre és élõlábra ne...'
+%% A meghajtók (dvips, pdfTeX, stb.) tájékoztatása a papírméretrõl: anysize hiányosság
+\expandafter\ifx\csname pdfoutput\endcsname\relax\chardef\pdfoutput0 \fi
+\ifnum0<\pdfoutput \pdfcompresslevel9
+  \pdfpageheight\paperheight \pdfpagewidth\paperwidth
+\else \special{papersize=\the\paperwidth,\the\paperheight}\fi
+%% End of 'A meghajtók tájékoztatása...'
+%%% END OF 'MARGÓK BEÁLLÍTÁSAI'
+
+%%% MAGYARLATEX BEÁLLÍTÁSOK
+\usepackage[latin2]{inputenc}
+\usepackage[T1]{fontenc}
+\def\magyarOptions {defaults=prettiest,hyphenation=huhyphn,afterindent=force-yes,labelenums=hu-a,frenchspacing=yes,refstruc=yes}
+% FOR EMERGENCY USE: \def\magyarOptions {defaults=safest}
+\usepackage[english,magyar]{babel}
+\def\bfdefault{b}
+%%% END OF 'MAGYARLATEX BEÁLLÍTÁSOK'
+
+%%% A SZOKÁSOS CSOMAGJAIM
+\usepackage{paralist}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{graphicx}
+%\usepackage{psfrag}
+\usepackage{amsmath}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage{nameref}
+%\usepackage{times}
+%\usepackage{caption}
+%\usepackage[definethebibliography]{easybib}
+%%% END OF 'A SZOKÁSOS CSOMAGJAIM'
+
+%%% A DIFFERENCIÁLOPERÁTOR HELYES SZEDÉSÉHEZ
+% written by Claudio Beccari 
+% published in TUGboat, Volume 18 (1997), No. 1, 39--48
+% slightly modified by FW
+\DeclareRobustCommand{\tmspace}[3]{%
+  \ifmmode\mskip#1#2\else\kern#1#3\fi\relax}
+\providecommand*{\negmedspace}{\tmspace-\medmuskip{.2222em}} 
+\makeatletter
+\providecommand*{\diff}%
+  {\@ifnextchar^{\DIfF}{\DIfF^{}}}
+\def\DIfF^#1{%
+  \mathop{\mathrm{d{}}}%%% original version: {\mathstrut d}}%
+    \nolimits^{#1}\gobblespace}
+\def\gobblespace{%
+  \futurelet\diffarg\opspace}
+\def\opspace{%
+  \let\DiffSpace\negmedspace%%% original version: \,
+  \ifx\diffarg(%
+    \let\DiffSpace\relax
+  \else
+    \ifx\diffarg[%
+      \let\DiffSpace\relax
+    \else
+      \ifx\diffarg\{%
+        \let\DiffSpace\relax
+      \fi\fi\fi\DiffSpace}
+\makeatother
+\providecommand*{\deriv}[3][]{%
+    \frac{\diff^{#1}#2}{\diff #3^{#1}}}
+%%% END OF 'A DIFFERENCIÁLOPERÁTOR...'
+
+%%% A SZOKÁSOS SAJÁT PARANCSAIM
+% négyzetméter
+\newcommand*{\nmeter}{\ensuremath{\mathrm{m^2}}}
+% magyar hagyományoknak megfelelõ tizedesvesszõ
+\newcommand*{\Szam}[1]{\MathReal{#1}}
+% az angolba való gyors átváltáshoz egy bekezdésen belülre
+\newcommand*{\E}[1]{\foreignlanguage{english}{#1}}
+%% Nem számozott fejezetcímek felvétele a tartalomjegyzékbe
+\newcommand*{\Part}[1]{\part*{#1}\addcontentsline{toc}{part}{#1}}
+\newcommand*{\Chapter}[1]{\chapter*{#1}\addcontentsline{toc}{chapter}{#1}}
+\newcommand*{\Section}[1]{\section*{#1}\addcontentsline{toc}{section}{#1}}
+\newcommand*{\Subsection}[1]{\subsection*{#1}\addcontentsline{toc}{subsection}{#1}}
+\newcommand*{\Subsubsection}[1]{\subsubsection*{#1}\addcontentsline{toc}{subsubsection}{#1}}
+%% End of 'Nem számozott fejezetcímek...'
+%%% END OF 'A SZOKÁSOS SAJÁT PARANCSAIM'
+
+%%% A SZOKÁSOS DEKLARÁCIÓIM
+%% Szigorú tükörkezelés
+\tolerance=10000
+\hyphenpenalty=0
+\clubpenalty=8000
+\widowpenalty=8000
+%% End of 'Szigorú tükörkezelés'
+%% Másfeles sorköz
+%\linespread{1.25} % 10pt-ra
+%\linespread{1.21} % 11pt-ra
+\linespread{1.24} % 12pt-ra
+%% End of 'Másfeles sorköz'
+%% Lapstílus
+\pagestyle{plain}
+%% End of 'Lapstílus'
+%%% END OF 'A SZOKÁSOS DEKLARÁCIÓIM'
+
+%%% MAKETITLE DEFINICIO
+\makeatletter
+% Une commande sembleble ? \rlap ou \llap, mais centrant son argument
+\def\clap#1{\hbox to 0pt{\hss #1\hss}}%
+% Une commande centrant son contenu (? utiliser en mode vertical)
+\def\ligne#1{%
+  \hbox to \hsize{%
+    \vbox{\centering #1}}}%
+% Une comande qui met son premier argument ? gauche, le second au 
+% milieu et le dernier ? droite, la premi?re ligne ce chacune de ces
+% trois boites co?ncidant
+\def\haut#1#2#3{%
+  \hbox to \hsize{%
+    \rlap{\vtop{\raggedright #1}}%
+    \hss
+    \clap{\vtop{\centering #2}}%
+    \hss
+    \llap{\vtop{\raggedleft #3}}}}%
+% Idem, mais cette fois-ci, c'est la derni?re ligne
+\def\bas#1#2#3{%
+  \hbox to \hsize{%
+    \rlap{\vbox{\raggedright #1}}%
+    \hss
+    \clap{\vbox{\centering #2}}%
+    \hss
+    \llap{\vbox{\raggedleft #3}}}}%
+% La commande \maketitle
+\def\maketitle{%
+  \thispagestyle{empty}\vbox to \vsize{%
+    \haut{}{\@blurb}{}
+    \vfill
+    \ligne{\Large \@title}
+    \vspace{5mm}
+    \ligne{\Large \@author}
+    \vspace{1mm}\ligne{\texttt{<\@email>}}
+    \vspace{1cm}
+\begin{abstract}
+\@Abstract
+\end{abstract}
+    \vfill
+    \bas{}{\@location, \@date}{}
+    }%
+  \cleardoublepage%
+  }
+% Les commandes permettant de définir la date, le lieu, etc.
+\def\date#1{\def\@date{#1}}
+\def\author#1{\def\@author{#1}}
+\def\title#1{\def\@title{#1}}
+\def\location#1{\def\@location{#1}}
+\def\blurb#1{\def\@blurb{#1}}
+\def\email#1{\def\@email{#1}}
+\def\Abstract#1{\def\@Abstract{#1}}
+% Valeurs par défaut
+\date{\today}
+\author{}
+\title{}
+\location{Pécs}
+\blurb{}
+\email{no email address}
+\makeatother
+%%% END OF 'MAKETITLE DEFINICIO'
+
+
+\title{Bimetallizmus -- Stabil, instabil?}
+\author{Szieberth Ádám}
+\email{szadam@mail.ru}
+\location{Pécs}
+\blurb{\textsc{Pécsi Tudományegyetem\\Közgazdaságtudományi Kar}}
+\Abstract{A bimetallizmus összeomlását 1873-ra teszi a szakirodalom. Nem véletlenül: A bimetallista blokk tagjai szinte egyszerre álltak át az aranystandardra abban az évben. Az eset kedvezett azoknak, akik a rendszer tarthatatlansága mellett érveltek: A konvencionális vélemény a bimetallizmus stabilitásának kérdésében máig ez. Elméleti alapja a Gresham-törvény, miszerint a ,,rossz pénz kiszorítja a jó pénzt.'' A bimetallizmus stabilitása mellett azonban máig sokan felsorakoznak: Az újabb kutatások komoly elméleti megalapozottsággal állítják, hogy a bimetallizmus fenntartható rendszer volt, és bukásának okait máshol kell keresni. Erre egy modellt is bemutatok. Dolgozatomban tehát felvázolom a történelmi eseményeket, interpretálom a szakmai vitákat, és bemutatom Oppers 2000-ben publikált modelljét.}
+
+
+
+\begin{document}
+\maketitle
+
+\thispagestyle{empty}
+
+\newpage
+\tableofcontents
+\newpage
+
+\Section{Bevezetés}
+
+Álljon itt egy idézet a magyar Wikipédiából: {\it ,,A közgazdaságtanban a bimetallizmus (más néven kétfémes pénzrendszer) olyan pénzrendszert jelent, melyben a pénzegységek értéke aranyban és ezüstben is megadható. A két nemesfém közötti átváltási arányt törvényben rögzítik. Gazdaságtörténeti szempontból a XIX. század végi Egyesült Államokban volt a legnagyobb súlya a rendszernek, hiszen egyedül ebben az országban termeltek nagy mennyiségben aranyat és ezüstöt is.
+
+Ez a fajta pénzrendszer nem stabil, hajlamos a válságra, mivel a nemesfémek piaci árfolyamát a termelés nagyban befolyásolja. A névértékét meghaladó piaci értékû nemesfémet tartalmazó érmék pedig kikerülnek a forgalomból és nemesfémként kerülnek felhasználásra (Gresham törvénye). Az Egyesült Államokban is ez következett be a XIX. század végén, ahol emiatt a bimetallisztikus pénzrendszer a gyakorlatban ezüstalapúvá vált a megugró kaliforniai ezüsttermelés és az emiatti ezüstáresés miatt.''}\,\cite{wikibimet}
+
+A kérdés bár nyilvánvalóan nem tartozik a mai közgazdaságtudományi kutatások fõáramába, mégis idõrõl idõre egyes kutatók vizsgálatát képezi. Az elméleti viták két fõ témakör körül zajlanak. Az elsõ: Megvalósítható-e, fenntartható-e és stabil-e a bimetallizmus? A monometallista álláspont szerint csak abban az esetben, ha a piaci cserearány és a törvény által rögzített cserearány elég közel áll egymáshoz. A rendszert a piaci sokkok elõbb-utóbb a monometallitás irányába lökik, sõt a Gresham-törvény alapján késhegyen álló egyensúlyt legjobb esetben is csak csillapíthatnák a törvényes váltási arány gyakori korrekciói\footnote{Ez azonban szintén a rendszer instabilitását okozná, ráadásul felvetné a létjogosultság kérdését is.}. A bimetallizmus mellett érvelõk pontosan ellentétes módon válaszolják meg a fenti kérdést. Az õ álláspontjuk szerint a törvényben rögzített átváltási arány hosszú távon is stabil piacot teremt a piaci arányok nagyfokú változásainak ellenére is, ráadásul a gazdaság szereplõi számára közömbössé válik az, hogy mely fémet használják, legyõzve vagy mellõzve ezzel a Gresham-törvényt. Flandreau egyenesen úgy vélekedik, hogy a bimetallizmus igenis stabil rendszer, az aranystandard elterjedése pedig csupán történelmi szerencse.
+
+A második kérdés a rendszer pozitív hozadékához kötõdik, azaz, hogy megéri-e, kívánatos-e a bimetallizmust választani? A támogatók szerint\footnote{Meghatározó személyek említhetõk: Fisher (1911), Walras (1977), Friedman (1990)} a bimetallizmus stabilabb árszínvonalat eredményez, különösen, ha a két nemesfém által okozott sokkok negatív korrelációban állnak egymással. Hogy ez mekkora pozitív hozadékkal kecsegtet, arról \az+\refstruc{sec:tort} lesz szó.
+
+\section{Történelem}\label{sec:tort}
+\subsection{A bimetallizmus születése és bukása}\label{ssec:bimet}
+
+A bimetallizmus keletkezésének egyik oka a két nemesfém eltérõ adottságaiból következõ komparatív elõnyök kialakulása. Az ezüst egységnyi súlya kevesebb, mint tizedét érte az aranyénak. Ebbõl két dolog következett: A nagy értékû tranzakciókhoz nem volt célszerû ezüstöt használni, annak komoly súlya és az ehhez kapcsolódó szállítási és más tranzakciós költségek miatt. A kis értékû cseréket viszont nehézkes volt arannyal végezni, mert a korabeli pénzverési technikák mellett nem lehetett az aranyat más fémekkel társítani, ezért a kis értékû aranyérmék rendkívül kis méretûek lettek volna.
+
+Természetesen párhuzamosan folyt mindkét nemesfém kitermelése. A földrajzi adottságoknak megfelelõen a különbözõ országokban különbözõ nemesfémek voltak meghatározóbbak, és habár a világ az ezüstalap felé terelõdött, az aranytermelõ országoknak érdekükben állt az aranyat, mint árupénzt (is) bevonni a pénzforgalomba.
+
+\Az+\refstruc{tab:goldsilver1} a becsült arany és ezüstkészletek alakulását mutatja az Újvilág felfedezésétõl.\cite{veldefollow} Látható, hogy kezdetben több arany áramlott be Amerikából, ám úgy 1530 környékétõl a készletek arányának egyenletes növekedése tapasztalható, köszönhetõen a Peruban bányászott nagy mennyiségû ezüstnek. Az arány aztán a XVII{.} század végén megnövekedett brazíliai aranykitermelésnek köszönhetõen stabilizálódott. A piaci ráta követte e folyamatokat, hiszen az európai államok fent kívánták tartani a két nemesfém egyidejû használatát. 1820-tól egészen 1873-ig a piaci árarány igen stabil, ám látható, hogy a készletek mennyisége nagy mértékben eltávolodott 1850-tõl. Ehhez az idõponthoz kötõdik a bimetallizmus körüli heves vita elkezdõdése világszerte. 1849-ben Kaliforniában óriási mennyiségû aranyat találtak. Látható, hogy az arany és az ezüst mennyiségének aránya ezzel az 1500-as évek szintjére csökkent. A növekvõ aranymennyiség ellenére a piaci arány stabil maradt 1873-ig, hogy aztán 1900-ra korábban elképzelhetetlen magasságokat érjen el. A kérdés az, hogy miért? Mi okozhatta azt a paradox jelenséget, hogy az arany kínálatának növekedése ellenére az értéke nem csökkent, sõt, nagy mértékben nõtt?
+
+\begin{figure}[h]
+\begin{center}
+%\includegraphics%[keepaspectratio,%
+%width=10cm, totalheight=10cm]%{abra01_2}
+\end{center}
+\caption{Az arany és ezüstkészletek aránya és a piaci átváltási arány \cite{veldefollow}}\label{tab:goldsilver1}
+\end{figure}
+
+\subsection{Európa}
+
+1871 decemberében az új egyesített Németország bejelentette, hogy áttér az ezüstalapról az aranyalapra. A skandináv országok és Hollandia 1872-ben követték e példát. Németország az ezüstöt tartalmazó érméket visszavonta és a világpiacon aranyra váltotta.
+
+1873 végére a Latin Érmeegyezmény tagállamai (Franciaország, Olaszország, Svájc, Belgium, Görögország, stb{.}), akik 1865-ben még nyíltan ragaszkodtak a bimetallizmushoz, mind korlátozták az ezüst szabad beváltását, amit néhány évvel késõbb annak felfüggesztése követett. Az ezüst világpiaci ára természetesen esett. Hamarosan a világ országai mind letértek az ezüstalapról, ami az ezüst további leértékelõdéséhez vezetett.
+
+\subsection{Amerikai Egyesült Államok}
+
+Az Egyesült Államokban többféle pénzt használtak. 1792-tõl a pénzrendszer hivatalosan bimetallizmus volt. Az \$1 és a váltópénzek ezüstbõl, az \$5 és a fölötti névértékû pénzérmék aranyból készültek. Nagyon alacsony volt a saját vert pénzek aránya, leginkább spanyol és brit érmék voltak forgalomban. Az addig 15{:}1-es hivatalos ráta 1834-ben 16{:}1-re változott. A '40-es évek végétõl az '50-es évek elejéig tartó kaliforniai aranyláz hatására megkezdõdött az arany érmék nagy mértékû verése. San Franciscoban egy új pénzverdét is kellett építeni, hogy kezelni tudják a növekvõ aranymennyiséget. Ezzel párhuzamosan olvasztották az ezüstérméket. A kínossá váló váltópénzhiány hatására 1853-ban a Kongresszus megtette az elsõ lépéseket az aranystandardhoz való áttérésre. Elszakították az érmék belsõ és névértékét egymástól (93\%-ra), valamint az közintézményekkel szembeni adósságok rendezését ezüst érmékkel csak \$5-ig lehetett rendezni. Csak korlátozottan bocsátottak ki érméket a beadott ezüst ellenében, így azokat jórészt a piacon kellett aranyra váltani. Lassan a névérték és a belsõ érték folyamatosan távolodott egymástól.
+
+Az 1861-65-ös polgárháború során mindkét fél nemesfémre nem váltható papírpénzt bocsátott ki a háború finanszírozására. Az északi papírpénz, az un{.} zöldhasú a gyakorlatban csak prémium ellenében volt aranypénzre cserélhetõ, aminek mértéke a háború alakulásától függött, és 1864-re 150\%-ra nõtt, majd a háború végeztével 50\%-ra esett vissza.\footnote{Látható, hogy a piacon kialakult prémiumnak köszönhetõen még a papírpénz ellenében is részt vett az aranypénz a pénzforgalomban, azaz nem érvényesült a Gresham-törvény a maga vegytiszta formájában. Természetesen a törvény egy lazább értelmezésébe belefér az az eset, amikor a jó pénzért prémiumot kérnek.} A kormány a zöldhasúak mennyiségét szigorúan szabályozta, aminek köszönhetõen a prémium tovább csökkent. 1873-ban ezért úgy döntött a Kongresszus, hogy az északi papírpénzek 1879 január 1-tõl aranyra válthatóak. Ugyanakkor törvényt hoztak a pénzverés újbóli megkezdésére. 1979-ig természetesen nem vertek pénzt a bevitt nemesfém ellenében, hiszen a zöldhasúért cserébe névértéken ezt senki nem tette meg. A törvény ugyanúgy elõírta az elsõsorban arany- és másodsorban ezüstpénzek verését, ahogy azt a korábbi 1862-ig szabályozta, ám nem tett említést az ezüstdollárról. Ennek elhallgatását nevezte Friedman ,,1873 bûntényének.''\cite{friedmancrime} Nem is keltett különösebb feltûnést az eset, egészen az 1879--96-os deflációs idõszakig.\footnote{A kormány a zöldhasúak névértékét a deklarált célnak megfelelõen a mögöttes értékre emelte, ám ez a folyamat nem állt meg 1879-ben. Másrészt a növekvõ reálkereslet is emelte az arany értékét.}
+
+A nyugati ezüstkitermelõ államok nyomására, akik az események veszteseinek tekinthetõk, az ezüstdollár mégsem tûnt el, hanem 1878-ban újra teljes értékû fizetõeszközi státust nyert. Sõt az 1878-as Bland--Allison Act értelmében a Kincstárnak minden hónapban 2 és 4 millió dollár közötti ezüstöt kellett vásárolnia piaci áron, és abból ezüst érméket verni. Ennek következtében 1889-re 438 millió dollár arany és 311 millió dollár ezüst volt a pénzforgalomban. A sánta aranyvaluta mellett az egy dolláros névértékû ezüst érmék piaci (belsõ) értéke folyamatosan, 1890-re 80 centre csökkent.
+A Sherman Ezüstvásárlási törvény a kényszervásárlás mértékét havi \Szam{4.5} millió unciára emelte, ami nagyjából ugyanekkora dollárösszeget jelentett. Ez a mennyiség az Egyesült Államok teljes ezüstkitermelését jelentette, ami a világ kitermelésének 40\%-a volt. Mivel a mennyiséget unciában szabályozták, a piaci érték folyamatos csökkenésével a kiadott összeg is csökkent. A vásárolt ezüstöt azonban nem verték pénzzé, hanem tartalékolták, és kincstári jegyeket bocsátottak ki. Ha ezeket a jegyeket ezüst ellenében váltották volna vissza, az az ezüstpénz verésével lett volna egyenértékû. Ehelyett a Kincstár deklarálta az arany ellenében történõ visszaváltást.
+
+Az 1890-es McKinley Tarifa törvény\footnote{A törvény értelmében a meghatározott tarifán kívül a tengerentúli árukat a helyi áruk szintjén lehetett csak eladni. Az árak növekedtek, a jólét csökkent. Ezt követte a bérek és a helyi áruk árának növekedése.\cite{wikimckinley}}, a nagyobb mértékû ezüstvásárlások együttesen az államkincstári többletet hiánnyá változtatták: Az 1890-es 105 millió dolláros többlet 1894-re 70 milliós deficitté változott. A törvény értelmében ennek ellenére az ezüstkészletek halmozása tovább folyt. 1890-ben egy uncia ezüst \$\Szam{1.06}-t ért, 1893-ban már csak 76 centet. Ezen idõ alatt a Kincstár 169 millió uncia ezüstöt vásárolt 156 millió dollár értékben, ami 1893 novemberében már csak 121 millió dollárt ért. Ha a Kincstár \$\Szam{1.29}-os elõirt ráta mellett ezüst érméket vert volna, a felhalmozott ezüst 218 millió dollárt ért volna. Velde úgy fogalmaz, hogy ez idõ tájt valójában a kormány egy óriási put opcióval rendelkezett a magánszektorral szemben.\cite{veldefollow}
+
+A fenti intézkedés azonban a bimetallizmushoz való effektív visszatérést jelentette volna. Érdemes kiemelni, hogy ez racionális döntés lett volna 1893-ban, annak ellenére, hogy az egész világ ekkorra már gyakorlatilag áttért az aranystandardra. A központi szervek büszkesége azonban nem engedte e döntés meghozatalát, annak ellenére, hogy e kérdés egyre jobban az érdeklõdés középpontjába került. Az 1896-os választásokon még a Republikánusok sem merték elutasítani a bimetallizmushoz való visszatérést. Kampányukban úgy fogalmaztak, hogy az USA visszatér a bimetallizmushoz, amint azt a nemzetközi színtér engedi. A Demokraták ezzel szemben azt mondták, hogy nem kell más nemzetek engedélyét kikérni, hanem azonnal be kell vezetni a rendszert, mégpedig 16{:}1-es központi ráta mellett. Végül a Republikánusok gyõzelme pecsételte meg a bimetallizmus sorsát az Egyesült Államokban.
+
+\section{A vita}
+
+\subsection{Egyszerre két numeraire?}
+A közgazdasági logikát sérti, hogy egy gazdaságban egyszerre két numeraire legyen. Az aranystandard esetében ilyen probléma nem merül fel, hiszen az elszámolási eszköz funkciót egy áru (arany) tölti be, mégpedig a következõ módon: 1 dollár rögzített, $x$ uncia aranyat tartalmaz. Az árvektor egyensúlyi egzisztenciája és unicitása biztosított. A javak beárazásával mûködik az általános egyensúly elmélet, a piac megtisztul az egyensúlyi árvektor mentén, és minden jószág ára endogenizálódik. Bimetallizmus esetén az elõzõ állítás így változik meg: 1 dollár $x$ uncia aranyat \emph{vagy} $y$ uncia ezüstöt tartalmaz. A két egyszerre jelen levõ numeraire felborítja a közgazdasági elméletet.  Nem beszélhetünk walrasi egyensúlyról, hiszen a kétszeres beárazottság mentén nem jöhet létre egyensúlyi árvektor.
+
+\subsection{Gresham-törvény}
+A bimetallizmus elleni érvek legerõsebbike a Gresham-törvény, mely a belsõ értékkel rendelkezõ pénzekrõl kimondja, hogy ha az állam rögzíti a két fémnek az átváltási arányát, akkor kettõs arany-ezüst ár alakul ki. Mindig a rossz pénz van forgalomban, mert az értékesebb, átmenetileg alulértékelt pénzt tartalékolják. Ezért egyesek a bimetallizmust nem is tartották monetáris rendszernek. A Gresham-törvény alapján csak a legritkább esetben fordulhat elõ, hogy mindkét fém egyszerre vegyen részt a cserefolyamatokban. A bimetallista rendszer tehát mindig egy de facto monometallista rendszer. Nyilván csak akkor használják mindkét fémet, ha a piaci arány éppen megegyezik a törvényben rögzítettel. Ha feltételezünk verési és beolvasztási költségeket, akkor e pont sávvá bõvíthetõ, ám amint a piaci arányok kilépnek a sávból, azonnal életbe lép a kiszorítási hatás. Flandreau az arbitrázsköltségek szélesebb értelmezésével azonban úgy véli, hogy a rendszer stabilitása fennáll. Errõl \az+\refstruc{ssec:arbitr+ban} lesz szó.
+
+Robert Giffen, a bimetallizmus egyik jeles ellenzõje némiképp félreértelmezve a Gresham-törvény népszerû megfogalmazását, miszerint ,,a rossz pénz kiszorítja a jó pénzt'', amikor a rossz pénzt fizikailag káros pénzként értelmezte, valamint tagadta, hogy a jó pénz a Gresham-törvény esetén bármiféle külföldre vándorlást is magába foglalna.\cite{giffen} Pedig pontosan ez történt pl{.} az 1820-as években Oroszországban vert platina pénzekkel.\cite[160{.}~oldal]{garami} Tagadhatatlan, hogy amikor az érméket az olvasztóba vitték, elõször a sérülteket olvasztották be, ám a Gresham-törvényt ez esetben sokkal szélesebb értelemben és ezáltal súlyát tekintve is jelentõsebbnek kell kezelni.
+
+\subsection{Fisher stabilizációs mechanizmusa}
+
+Fisher 1894-ben egy áramlási modellel \cite{fisher94} elemezte a Gresham-törvény mûködését, és kimutatta, hogy az abban meghatározott folyamat a piaci arányt a kötötthöz közelíti, mégpedig a következõ módon: a piaci ár az árupiacon, míg a törvényes ráta a pénzpiacon érvényes árarányokat fejezi ki. Ha a piaci arány a rögzített fölé emelkedik, akkor az arbitrazsõrök a monetáris rendszerbõl az árupiacra csoportosítják az aranyat (Átmenetileg csökken a pénzkínálat). Az árupiacon megnõ az arany kínálata, ezáltal a piaci ráta csökken, amíg el nem éri a törvényben rögzítettet. A pénzkínálat azonban láthatóan érzékeny az átváltási arányok között bekövetkezõ eltérésekre, még akkor is, ha egyébként a folyamat végére teljesen visszaállna a kezdeti értékére. A fokozódó és egyre gyakoribb piaci nyomások azonban az állami tartalékok kifogyását elõidézve legyõzhetik Fisher mechanizmusát.
+
+Nem ez azonban a Fisher féle stabilizációs mechanizmus gyengéje, hanem, hogy nem feltétlenül igazolják az empirikus adatok. A mechanizmus ugyanis implicit feltételezi a két fém együttes használatát, cserefolyamatokban való részvételét. Általánosan elfogadott, bár Flandreau ezt elképzelhetetlennek tartja \cite{flandreauwater}, hogy a bimetallizmus egyik bástyáját jelentõ Franciaországban a rendszer idején de facto arany-, illetve ezüststandardok váltakoztak, azaz a pénzforgalomból hol az egyik, hol a másik fém szorult ki. Például 1830-tól 1850-ig szinte kizárólag csak az ezüst vett részt a pénzforgalomban, aztuán 1860-ig az arany. Ez a bimetallizmus ellenzõinek egyik fõ érvét erõsíti, akik a két fém együttes pénzforgalmi szerepvállalását vitatják. Úgy tûnik, hogy ezen érvük helytálló lehet. Le lehet-e ebbõl vonni azt a következtetést, hogy a bimetallizmus nem is önálló monetáris rendszer? Ha a bimetallizmus nem tud semmiféle ,,pluszt'' nyújtani a monometallizmussal szemben, akkor elképzelhetõ. Látni fogjuk, hogy a bimetallizmusnak igenis vannak csak rá jellemzõ, pozitív hatású ismertetõjegyei.
+
+Az említett empirikus adatok kimutatták ugyanis azt a jelenséget, amit a Fisher féle stabilizációs mechanizmus módszerét tekintve helytelenül, ám következtetését tekintve helyesen magyarázott. Az említett idõszakban ugyanis a piaci ráta végig a rögzített 6\%-os környezetében maradt. A kérdés: Ha az iménti mechanizmus nem magyarázhatja e nagyfokú stabilitást, akkor micsoda?
+
+\subsection{Arbitrázsköltségek}\label{ssec:arbitr}
+Az egyik lehetséges válasz Flandreau 2002-es empirikus vizsgálata és modellje, mely  elsõként vizsgálta a arbitrázsköltségeket. Franciaország bimetallizmuskori arany- és ezüstkereskedelmét, valamint a londoni piaci árakat felhasználva olyan mechanizmusokat is felfedezett, melyeket az arbitrázsmentes modellek (így az általam bemutatott Oppers modellje) nem magyaráznak. Az import és exporthoz köthetõ arbitrázsköltségek meghatároznak egy sávot, amibõl az empirikus adatok szerint 1873-ig nem lépett ki a két nemesfém piaci aránya. A korábbi áramlási viselkedések mellett a szerzõ újakat is felfedezett. Flandreau kimutatta, hogy Franciaországon keresztül nem csak a korábban más szerzõk által vizsgált pénzforgalom zajlott, azaz hogy a rossz pénz be, a jó pénz pedig kiáramlott, hanem volt olyan idõszak (1848-1850), amikor egyszerre folyt mindkét nemesfém importja.\footnote{Persze eltérõ mennyiségben. Pont ezáltal mozgott a piaci arány a rögzített irányába.} Az arbitrázsköltségek által meghatározott sávhatár másik származékos hatásaként az egyes  importok és exportok késleltetve indulhattak, ami lehetõséget nyújtott a tartalékolásra. \cite{flandreauwater}
+
+\subsection[Az átváltási arány stabilitása]{Az átváltási arány stabilitása, mint a sávos árfolyamrendszerek analógiája}
+
+Egy másik lehetséges válasz erre a kérdésre Oppers modellje \cite{oppers}, amit e dolgozat is bemutat \az+\refstruc{modell+ben}. Velde és Weber \cite{velde} szintén igen meggyõzõ modellt állítottak fel a bimetallizmus stabilitása mellett. Ez utóbbi modell azonban beleerõszakolja a rendszert abba, hogy mindkét egyidejû fém forgalma biztosított legyen. Egy ilyen szituációban Fisher mechanizmusa is mûködik. Meg kell azonban említeni, hogy ez a megkötés nem feltétlenül hibás. Bár említettem, hogy Franciaország esetében a gyakorlatban arany- és ezüstpénzrendszerek váltakoztak, ám ez egyrészt nem jelenti azt, hogy a másik pénz 100\%-osan kiszorult volna a pénzforgalomból, másrészt sok esetben még monometallista országokban is megfigyelhetõ az ezüst váltópénzként való kisebb-nagyobb mértékû felhasználása, vagy éppen az arany használata a nagy összegû kifizetésekhez. Ahogy azt \az+\refstruc{sec:tort+ban} is említettem, a két nemesfém nagy mértékû értékkülönbözetébõl adódó technikai (komparatív) elõnyök okozták a bimetallista rendszer megszületését is.
+
+Láttuk, hogy a bimetallista országok de facto monometallista rendszerek voltak. Mivel azonban a bimetallizmushoz számos más ismérv köthetõ azon túl, hogy egyszerre két fémnek kéne részt vennie a pénzforgalomban, meggondolandó ez utóbbi ismérv egyszerû ejtése, annak ellenére, hogy legtöbben pontosan ezzel azonosítják a rendszert.
+
+Elsõ megközelítésben meggondolandó, hogy ha mindenképpen bele kell sodródnia egy bimetallista rendszernek valamely monometallista helyzetbe, akkor az átmenetet a piaci árarányok fogják levezényelni\footnote{Feltehetõleg pontosan akkor, amikor kell.}, nem pedig egy esetlegesen rosszul idõzített állami intézkedés. Másrészt a bimetallizmus esetleg annak ellenére, hogy belecsúszik valamelyik szélsõséges helyzetbe, nem zárja magára az ajtót. A lenti modell pedig nem egyedüliként bizonyítja az ismert empirikus adatokkal összhangban azt, hogy a bimetallista rendszerek komolyan részt vettek az árszínvonal stabilitásának megteremtésében.
+
+Az újkori irodalom modelljeinek nagy része a bimetallizmus stabilitása mellett foglal állást. Velde és Weber szerint nemcsak 1873-ig, hanem az elsõ világháborúig stabil pénzrendszer lehetett volna a bimetallizmus. Mégis a szerzõpáros úgy vélekedik, csoda, hogy a rendszer összeomlása nem korábban következett be. Hogy miért, arra a következõ fejezet adja meg a választ.
+
+\subsection{Megéri?}
+
+Megéri-e a bimetallizmust fenntartani? Fisher és Friedman amellett érveltek, hogy a stabil árszínvonal mindenképpen jóléti hozadékkal jár. Velde és Weber empirikus elemzése azonban e hatást igen gyengének mutatta, habár a szerzõk kijelentették, hogy az exogénnak feltételezett fogyasztás miatt modelljük nem igazán alkalmas ennek vizsgálatára. Kimuttattak azonban egy másik hatást, mely szerint a jólét szempontjából a bimetallista rendszer mindig alulmarad a monometallistákkal szemben. Az általuk definiált jóléti közömbösségi görbéknél a kevert pénzrendszer által meghatározott görbe ,,érzékenyebben görbül'', így bármely kevert pénzrendszer a jólét tekintetében alulmarad a monometallista rendszerekkel szemben.\cite[1219{.}~oldal]{velde} Ennek ellenére a megéri kérdését jelen állás szerint még nem tekinthetjük eldöntöttnek.
+
+\section{Oppers modellje}\label{modell}
+Dolgozatomban Oppers 2000-ben publikált dinamikus nemegyensúlyi bimetallizmus\footnote{Láthattuk, hogy a Fisher féle stabilizációs mechanizmus gyengéje az volt, hogy feltételezte a pénzforgalomban mindkét fém együttes jelenlétét. Ezt nevezi Oppers egyensúlyi bimetallizmusnak. Értelemszerûen a nemegyensúlyi jelzõ arra utal, hogy e modell ilyen feltételezéssel nem él.} modelljét \cite{oppers} mutatom be. A modell három országos világgazdaságot definiál: Az egyik országban aranystandard van érvényben ($GS$), a másikban ezüststandard ($SS$), míg a harmasikban bimetallizmus ($BIM$). A piaci ráta az elsõ két ország által meghatározott váltási arány. Az arany és az ezüst minden formájukban tökéletes helyettesítõi egymásnak, valamint a beruházási és spekulációs célokra tartott nemesfémeket pénzben tartják.
+
+Az így alkotott bimetallista rendszer modellezhetõ Flood és Garber loglineáris modelljével, melyet késõbb a sávos devizaárfolyam-rendszerekre alkalmazott a szakirodalom.\cite[522{.}~oldal]{oppers}
+\begin{gather}
+m_G-p_G=\alpha_G+\beta_G y_G-\gamma_G i_G+v_G\\
+m_S-p_S=\alpha_S+\beta_S y_S-\gamma_S i_S+v_S\\
+p_G+x=p_S\\
+i_G=i_S-\frac{E_t(\diff x)}{\diff t}.
+\end{gather}
+A kamatlábat ($i$) kivéve minden változó logaritmikus, $m$ jelöli a pénzkínálatot, $p$ az árszínvonalat, $x$ a váltási arány az arany- és az ezüstalapú országok között. Azt mutatja, hogy hány egység ezüstöt kell adni egy egység aranyért cserébe. A pénzkereslet véletlen sokkhatásait a $v$ sztochasztikus változók fejezik ki. Minden változó az idõ ($t$) függvénye. $G$ és $S$ az ezüst és az arany által dominált területeket jelöli. Az elsõ két egyenlet bal oldalán a reálpénzkínálat, jobb oldalán a reálpénzkereslet szerepel. Ezeknek mindkét blokkban meg kell egyezniük. Az egyszerûség kedvéért feltesszük, hogy $\gamma_G=\gamma_S=\gamma$. (3) jelöli a vásárlóerõ-paritást, (4) pedig azt, hogy fedezetlen kamatlábparitás van jelen. A bimetallista rendszer ketté választása után ékelhetõ a modellbe:
+\begin{gather}
+y_G=\ln (Y_{GS}+\lambda Y_{BIM})\\
+y_S=\ln (Y_{SS}+(1-\lambda) Y_{BIM}),
+\end{gather}
+ahol $Y$ jelöli a reálkibocsátásokat és $\lambda$ pedig az arany részarányát $BIM$ ország pénzforgalmában. Látható, hogy ebben a megközelítésben $y_G$ a világgazdaság reálkibocsátásának azt az arany által ,,lefedett'' részét jelöli. Ebbõl következõleg $\lambda$-tól függõen jelentheti $GS$ ország outputját, de akár $GS$ és $BIM$ országok outputjainak összegét is, valamint minden köztes lehetõséget.
+
+Az (1)-(4) egyenletekbõl:
+\[
+x=\alpha_G-\alpha_S+m_S-m_G+v_G-v_S+\beta_G y_G-\beta_S y_S +\gamma \frac{E_t(\diff x)}{\diff t}.
+\]
+Ezt egyszerûbb alakba írva:
+\begin{equation}
+x=k+w+\gamma \frac{E_t(\diff x)}{\diff t},
+\end{equation}
+ahol $w$ jelöli a két bétás tagot, mig $k$ az elsõ hatot. Látható, hogy $x$ három dologtól függ: a $k$ által jelölt mindkét fémre vonatkozó pénzkeresleti és pénzkínálati sokkoktól; a $w$ által jelölt, $y_G$ és $y_S$ reálkibocsátások lineáris kombinációjától; valamint saját várható pillanatnyi változásától. Ha feltételezzük, hogy az $Y$-ok konstansok, akkor $w$ csak $\lambda$ függvénye. Ezáltal $x$ és $\lambda$ szoros kapcsolatban állnak egymással. Ha $\lambda$ nulla és egy közé esik, akkor a Fisher féle stabilizációs mechanizmusnak köszönhetõen a $k$ által reprezentált sokkhatásokat ellensúlyozza a$w$-ben bekövetkezõ átrendezõdés, azaz $x$ változatlan marad, ezért várható változása $0$, aminek köszönhetõen ekkor $\Bar{x}=k+w$.  Ha pedig $\lambda$ $0$ vagy $1$, akkor a Fisher mechanizmus nem mûködik, és csak a ,,rossz'' pénz marad a forgalomban. Ha $\lambda=0$, akkor az arany kiszorul és $LR<MR=x$. Ekkor viszont az egyes országok konstans reálkibocsátásának feltételezésébõl adódik, hogy $y_G$, $y_S$, és ebbõl következõleg $w$ is konstansok. Ekkor $x$ csak $k$ függvénye.
+
+Az elõbbi esetben $x$ a Fisher féle stabilizációs mechanizmusnak köszönhetõen rögzített, míg a második esetben szabadon mozoghat. Lehetõség van továbbá a két helyzet közötti váltásra is. Ha például az elõbbi példát követve $LR<MR_0=x_0$\footnote{Itt $LR$ a rögzített, míg $MR$ a piaci rátát jelöli}, és például új aranylelõhelyek következtében az arany leértékelõdik, azaz $MR$ csökken, elõbb-utóbb elérheti az $LR=MR$ pontot. További csökkenés azonban a Fisher-mechanizmusnak köszönhetõen nem lehetséges. A rendszer a rögzített helyzetbe került. Ehhez az kellett, hogy kezdetben a rögzített ráta a piaci alatt legyen. Fordított esetben is hasonlóan zajlik minden, csak ekkor a piaci árarány felülrõl indul és alsó korlába ütközik. A helyzet nagyon hasonló a sávosan rögzített árfolyamrendszerekben megismertekhez. A törvényben rögzített átváltási arány két egyoldalú sávhatárt alkot. A hasonlóság alapján feltételezhetõ, hogy a stabilizációs mechanizmus is hasonló. Módszertanilag is az azon a területen alkalmazottakat fogjuk használni.
+Mivel a rendszer dinamikáját $k$ okozza, feltételezzük, hogy $k$ aritmetikai Brown-mozgást (bolyongási folyamatot) követ:
+\begin{equation}
+\diff k = \sigma \diff z = \sigma u(t)\sqrt{\diff t},
+\end{equation}
+ahol $u(t)$ normális eloszlást követ. Oppers (8)-at a sztochasztikus analízis eszközeivel megoldva \az+\refstruc{fig:kamtkulk} által szemléltetett eredményeket kapta $x$-re $k$ függvényében az 1849-1850-es adatok alapján.
+
+\begin{figure}[h]
+\begin{center}
+%\includegraphics%[keepaspectratio,%
+%width=10cm, totalheight=10cm]%
+%{abra01}
+\end{center}
+\caption{Kamatlábkülönbségek és a piaci váltási arányok $k$ függvényében \cite{oppers}}\label{fig:kamtkulk}
+\end{figure}
+
+Az ábrán balról elindulva ($k$-t növelve) látható, hogy az alsó görbe monoton növekvõ, ám konkáv alakjának köszönhetõen a törvényben rögzített átváltási arányhoz közeledve a piaci ráta változása egyre kisebb. Emellett az ezüst megnövekedett mennyisége az ezüst által fedett területeken kamatlábcsökkenést eredményez, aminek következtében $(i_G-i_S)$ nõ. Elérve $k_0$-t a rendszer rögzítetté válik. Megindul az ezüstpénzek verése, az arany elkezd kiszorítódni. Az ezüst $SS$-tõl $BIM$-hez, az arany $BIM$-tõl $GS$-hez áramlik. Az ábra jobb oldala az ezzel ellentétes helyzetet mutatja be, azaz azt, amikor a piaci ráta kezdetben a rögzített felett van. Nem szabad tehát azt hinni, hogy a már korábbal említett helyzettel ellentétben kétoldalú sávhatárok lennének: Az ábra két egyoldalú sávhatárt fésül össze. Ezzel el is jutottunk a következõ sejtéshez: Két bimetallista ország esetén megvalósítható a kétoldalú sávhatár. 
+
+\begin{figure}[h!]
+\begin{center}
+%\includegraphics%[keepaspectratio,%
+%width=10cm, totalheight=10cm]%
+%{abra02}
+\end{center}
+\caption{A piaci és a nagyobb országok által törvényben megszabott átváltási arányok \cite{oppers}}
+\end{figure}
+
+Az ábra jól mutatja, hogy miként stabilizálták az átváltási arányokat a bimetallista országok a 19{.} században. A folyamat fõszereplõje Franciaország, míg a többiek adták a sáv másik felét. 1836-tól 1861-ig az Egyesült Államok 16-on rögzített átváltási aránya adta a felsõ, míg Franciaország \Szam{15.5}-ös törvényben rögzített átváltási aránya jelentette az alsó sávhatárt. Aztán Franciaország lett a felsõ, míg az Osztrák-Magyar Monarchia az alsó korlát, amit késõbb Oroszország vett át. A modell kiválóan magyarázza azt, hogy az effektív ezüstalapú rendszert miért váltotta fel az aranyalapú 1860-ban Franciaországban.
+
+A rendszer elõnye, hogy egy olyan stabilizációs mechanizmust teremt, mely nem igényel további beavatkozást, nem függ a központi bank hitelességétõl. A folyamatokat a gazdasági szereplõk profitmaximálási céljai vezérlik, így nem kell attól félni, hogy a sávhatárokat esetlegesen nem védik meg.
+
+\section{Következtetések}
+
+A dolgozatom elején álló idézet a konvencionális vélekedést tükrözi. Ahogy egyre mélyebben merültem a a bimetallizmus témakörébe, egyre inkább szembesültem azzal a ténnyel, hogy az általánosan elfogadott nézetek nem csak, hogy felületesek, de sok esetben egyenesen helytelennek tekinthetõk. Érdekes például, hogy más források (pl. \cite[159]{garami} is megugró ,,kaliforniai ezüstkitermelésrõl'' beszélnek: Az idõszak a mindenki által ismert 1845-tõl 1855-ig tartó kaliforniai aranyláz. Az aranyláz végétõl visszaesõ ütemû aranykitermelést a gyengülés ellenére is csak 1885-re érte be az ezüsté, hogy aztán 1900-tól ismét alulmaradjon egy újabb aranykitermelési robbanásnak köszönhetõen.
+
+Persze nehezebb megmagyarázni, hogy mi okozta azt a paradox jelenséget, hogy a kínálat jelentõs növekedése ellenére mégis nõtt az arany ára, ráadásul minden korábbi szintet meghaladó mértékben. \Az+\refstruc{tab:goldsilver1} gyakorlatilag dolgozatom egyik fõ pillére. Az általam idézett szerzõk és írások alapján is rájöhet az olvasó, hogy engem meggyõzött a bimetallizmus stabilitása mellett kiálló irodalom. Gyakorlatilag a komolyabb publikációk nagy része az utóbbi 30 évben csak a stabilitás igazolásának módszerében viaskodik, a rendszer gyengeségét bizonygató írást nem is találtam. A stabilitás elméleti bizonyítása azonban a bimetallizmus létjogosultságának csak egyik mezeje.
+
+Velde megfogalmazásában a bimetallizmus három szükséges ismérve: A két nemesfém egyidejû részvétele a pénzforgalomban, mindkét nemesfém szabad verése és beolvasztása, és konstans átváltási arány deklarálása.\cite{veldefollow} A második feltétel hiánya kereskedelmi pénzt, a harmadiké sánta pénzrendszert eredményez.
+
+Az elsõ feltételnek a bimetallista országokban\footnote{Fõleg Franciaország esetében.} való effektív teljesülése vagy nem teljesülése körül viták folynak. Én a magam részérõl úgy éreztem -- és ezért is mutattam be Oppers modelljét --, hogy az elsõ feltétel szükségessége nem törvényszerû: A bimetallizmus közgazdasági megközelítése túlságosan is közgazdasági kategóriaként kezeli azt. Véleményem szerint talán valamiféle szakmai szûklátókörûség miatt egyesek nem tulajdonítanak elegendõ jelentõséget annak, hogy a bimetallizmus ugyanannyira jogi kategória. Szélsõséges esetben azt is mondhatnánk, hogy ha az állam törvényben rögzíti a második és a harmadik feltételt, valamint kijelenti, hogy bimetallizmus van érvényben, akkor attól kezdve az a pénzrendszer. A nemesfémek konkurens használata pedig csak jelenség: független tényezõ. Ez esetben akár könnyedén elõfordulhat az az eset, ami Franciaországban történt, azaz, hogy a két nemesfém felváltotta egymást a pénzforgalomban.
+
+Oppers modelljében az elsõ feltételt nem tette szükségessé, mégis felfedezte a bimetallizmus egyik nagyon lényeges jellemzõjét: A két árupénz átváltási arányát a rendszer valamely irányban korlátozza. Sõt, két bimetallista ország sávhatárt képes meghatározni. Ráadásul szemben az árfolyamsávokkal, a bimetallizmus által teremtett sáv megbízhatóbb, ráadásul alanya közvetlenül hat az árszínvonalra, hiszen árupénzrõl beszélünk. A rendszer bizonyított a tekintetben is, hogy komolyabb nemesfémkitermelési sokkokkal szemben is helyt tud állni.
+
+A Gresham-törvénnyel kapcsolatban is mai napig komoly viták zajlanak. Nem is annyira a logikáját vitatják, hanem a megvalósulásának törvényszerûségét vagy éppen esetlegességét. Mindenesetre úgy látom, hogy jelenleg egy e vitákban semleges személy számára a kérdés nem eldönthetõ.\footnote{Ez annál is inkább érdekes, mivel a közgazdaságtudomány egyik legrégebbi törvényérõl beszélünk.} Azért valószínûsíthetõen a Gresham-törvény nem egy általánosan érvényesülõ jelenség.
+
+Miután a Wikipédiában közölt idézetet darabokra szedtük, felmerül a kérdés, hogy akkor miért is omlott össze a bimetallizmus? Úgy vélem -- és ezért is bõvítettem ki a történelmi részt --, hogy a rendszer megszûnését egyrészt politikai okok magyarázzák. Másrészt a papírpénzek megjelenése, a megnövekedett aranymennyiség, valamint a korszerûbb pénzverési technikák\footnote{\Az+\refstruc{ssec:bimet+ban} szó volt arról, hogy a fejletlen pénzverési technikák korlátozták az arany kis értékû cserékben való részvételét.} mind hozzájárultak egy kevéssel az aranystandardra való áttéréshez. Ennek ellenére láthattuk, hogy az Egyesült Államokban hasonlóan nyomós, ha nem fontosabb okok sem idézték elõ a rendszer reneszánszát. Ezzel kapcsolatban ismét a politika tehetõ felelõssé.
+
+\newpage
+\renewcommand{\refname}{Felhasznált irodalom}
+\begin{flushleft}
+\nocite{wikibimet}%
+\nocite{velde}%
+\nocite{oppers}%
+\nocite{garami}%
+\nocite{giffen}%
+\nocite{fisher94}%
+\nocite{friedmancrime}%
+\nocite{veldefollow}%
+\nocite{flandreauwater}%
+\nocite{wikimckinley}%
+\nocite{wikilatin}%
+%\nocite{penzugytan}%
+\bibliographystyle{huplain}
+\bibliography{bimetallism}\addcontentsline{toc}{section}{Felhasznált irodalom}
+\end{flushleft}
+\end{document}
