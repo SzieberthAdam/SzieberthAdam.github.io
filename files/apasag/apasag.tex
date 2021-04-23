@@ -1,0 +1,538 @@
+\startproject iras
+\mainlanguage[hu]
+\setupalign[
+  justified,
+  nothanging,
+  nohz,
+  hyphenated,
+  morehyphenated,
+  tolerant,
+]
+\setupinterlinespace[height=0.75,depth=0.25]
+\setuplayout[
+  grid=yes,
+  location=middle,
+]
+\def\PagenumberingCommand#1{\doifnot\pagenumber1{#1}}
+\setuppagenumbering[
+  location={footer,middle},
+  command=\PagenumberingCommand,
+]
+\setuppapersize[A4]
+\setuplayout[
+    backspace=30mm,
+    width=150mm,
+    topspace=30mm,
+    header=0mm,
+    footer=15mm,
+    footerdistance=0mm,
+    bottom=0mm,
+    bottomdistance=0mm,
+    height=247mm
+]
+
+% Betűkészlet
+\setupbodyfont[libertinus,12pt]
+
+% Vékony spácium bizonyos karakterek előtt (:;?!)
+\definecharacterspacing [magyarpunctuation]
+\setupcharacterspacing [magyarpunctuation] ["0021] [left=.1,alternative=1] % ! % strip preceding space(char)
+\setupcharacterspacing [magyarpunctuation] ["003A] [left=.1,alternative=1] % : % strip preceding space(char)
+\setupcharacterspacing [magyarpunctuation] ["003B] [left=.1,alternative=1] % ; % strip preceding space(char)
+\setupcharacterspacing [magyarpunctuation] ["003F] [left=.1,alternative=1] % ? % strip preceding space(char)
+
+% A magyar nyelv beállításai
+\startsetups[magyar]
+  % Vékony spácium bizonyos karakterek előtt (:;?!)
+  \setcharacterspacing[magyarpunctuation]
+  \setupindenting[%
+    yes,% A bekezdéseket behúzással kezdjük.
+    %next,% Az első bekezdés nincs behúzva.
+    medium% Közepes méretű (átmeneti megoldás: igazából a mérete 24 cicerós sorig 1 kvirt, nagyobbbnál 2 kvirt kellene legyen -> TENNIALÓ)
+  ]
+\stopsetups
+
+\setuplanguage[hu][%
+  setups=magyar,% Érvényesíti a fent megadott beállításokat.
+  spacing=packed% Frenchspacing (Gyurgyák 319. o.: egyenletes szóközök).
+                % http://wiki.contextgarden.net/French_spacing).
+]
+
+% TENNIVALÓ: csak magyar nyelvre
+% Idézetek (Gyurgyák, 86--87. o.).
+\definedelimitedtext[quote][location=text]
+\setupdelimitedtext[quote:1][
+  left={\lowerleftdoubleninequote},
+  right={\upperrightdoubleninequote},
+  spaceafter=0
+]
+\setupdelimitedtext[quote:2][
+  left={\rightguillemot\nobreak\hskip-.07em},
+  right={\kern-0.03em\leftguillemot},
+  spaceafter=0
+]
+\setupdelimitedtext[quote:3][
+  left={\upperleftsingleninequote},
+  right={\upperrightsingleninequote},
+  spaceafter=0
+]
+
+\defineframedtext[kerdes][align=center,offset=0.5ex,style=italic,width=\dimexpr0.8\dimexpr\makeupwidth]
+
+\defineframedtext[kivonat][offset=0.5ex, frame=off,style=italic,width=\dimexpr0.8\dimexpr\makeupwidth]
+
+%\showgrid[all]
+
+\startproduct iras
+\startbodymatter
+
+\startsubject[title=Családalapítás apai szemmel]
+
+\startkivonat[middle]
+Miért jó vagy nem jó családot alapítani?
+A férfi eredendő szerepe a családban.
+Mi kell a családalapításhoz?
+A családalapítás anyagi háttere.
+Az apai vízió szükségessége a család fizikai és lelki útjáról.
+Az apai jelenlét fontossága és értéke a várandós asszony, majd a gyermekágy és a kisgyermek mellett.
+Fejlődési lehetőségek sokasága és a béke elérésének küzdelme a családban.
+\stopkivonat
+
+Először is szeretném kihangsúlyozni, hogy amiről ma beszélni fogok, az a mi családi utunk és azon belül az én szerepem.
+Habár az előadás témája miatt az apává válásomra kellene fókuszálnom, megmondom őszintén, hogy ezt nagyon esetlenül sikerült csak megtennem, mégpedig azért mert Diával ketten olyan egységben vagyunk, hogy sok esetben nem beszélhetek csak a magam útjáról miközben az út közös.
+Mégis annyiban talán meg tudok felelni a feladatnak azon túl, hogy természetesen lesznek olyan részek amelyek rólam szólnak, hogy a most következő gondolatok nem igazán származhatnának egy anyától.
+
+Igyekszem kerülni az általánosítást és inkább arra buzdítani férfitársaimat és minden családot, hogy tegyék fel maguknak az alapkérdéseket, keressék a maguk válaszait és aszerint cselekedjenek.
+Hiszem persze, hogy mi jó úton járunk, és remélem, hogy talán abból amit ma elmondok, egy-két gondolat másnak is megtetszik.
+
+Én most mint egy szerető feleség férje és két bájos kisgyermek apja ülök itt előttetek.
+Boldogok vagyunk, megvan mindenünk.
+
+A családosságunkat megelőző életünk teljesen ellentétes volt a maival, és ha visszatekintünk, nem is értjük, hogy hogyan juthattunk ide.
+Ingoványra alapoztuk a közös életünket, ma mégis mintha gyémánton állna.
+Nem gondolom, hogy ez csak rajtunk múlott; velünk volt ebben a gondviselés.
+Sajnos több nálunk jobban összeillőnek tűnő pár házasságát láttuk azóta szétesni.
+Megvoltak a magunk súlyos válságai, de a mélységekből erősebben tértünk vissza.
+Azon túl, hogy indokolatlanul szerencsések vagyunk, számos alkalommal felvetődött bennünk a kérdés, hogy nekünk miért sikerült ennyire erőssé válnunk egymásban?
+
+%\page
+\subsubject{Miért jó vagy nem jó családot alapítani?}
+
+Az első téma, amit megjelöltem, hogy miért jó vagy nem jó családot alapítani?
+Nos, mikor Dia először mondta nekem, hogy gyermeket szeretne, majd később, mikor már én is kezdtem hajlani rá, de még tán első gyermekünk -- Andor -- fogantatásakor sem volt bennünk tisztázva ez a kérdés.
+Én abból indultam ki, hogy anyagilag semmi akadálya a gyermekvállalásnak, halogatni nincs értelme mert a nejem már harmincon túl van, ráadásul ő nagyon szeretné, amúgy pedig nagyon szeretjük egymást.
+Ez nem volna elég?
+Nem állítom, hogy várnunk kelett volna még, viszont számos tényező hiányzott, amit ma fontosnak tartunk.
+Nagy szerencsénk van, hogy az élet rávezetett ezeknek a felismerésére.
+Ebben nem kis szerepe van annak a kilenc hónapnak, ami rendelkezésre áll, hogy a szülők felkészülhessenek a családos életükre.
+
+\startkerdes[middle]
+Miért jó családot alapítani, és miért nem?
+Valaki tud pro és kontra érveket?
+\stopkerdes
+
+Nos, gyermekvállaláskor egy emberi életet kívánunk teremteni, ezért nem árt, ha van fogalmunk arról, hogy mi az emberi élet célja.
+
+\startkerdes[middle]
+Van itt valaki aki megosztaná velünk élete célját?
+\stopkerdes
+
+Remélem nem fogtok kiözönleni a teremből, ha elmondom, hogy én ma hogyan értelmezem az embert.
+Természetesen ez már hit kérdés, és ahogy már említettem, nem muszáj egyetérteni velem.
+Mégis az erről való vélekedés meghatározza a szülői döntések egy részét és kijelöli a gondoskodás irányát.
+Éppen ezért gondolom azt, hogy nagyon jó, hogy ha a szülőknek van közös elképzelésük az emberi élet értelméről.
+Mindez persze nem zárja ki, hogy az utód majd felnőttként akár teljesen másképp gondolkodhasson erről a kérdésről.
+
+Az ember különleges lehetőség birtokában van.
+Megéli, tudja, hogy van benne valami több, mint az állatban.
+Sokan úgy hiszik, hogy ezt a többletet egyenesen Istentől kaptuk.
+Nyugtalan az ember, mert ugyanakkor el van szakadva attól az ősállapottól, amelyben teljesen megélhette az eredeti harmóniát, az isteni jelenlétet.
+Látja a születéssel és a halállal járó küzdelmet, és kétségek közt van, hogy földi élete vajon száműzetés, tanulmányút, próbatétel, vagy céltalan lét?
+Mit vár tőle az Isten, már ha létezik, és ha van egyáltalán valami elvárása?
+Hogyan juthat ki ebből a szorongatott állapotból?
+
+A különböző vallások többek között ezekre a kérdésekre igyekeznek megnyugtató válaszokat adni.
+
+Az embernek módjában áll a lét alapkérdésein elgondolkodni, és ez alapján a maga által választott módon élni.
+Szabadon dönthet, de úgy gondolom, hogy tettei következményét viselnie kell.
+
+Az ember csak anyag vagy valami több is?
+Ádám a nevem, és szeretem nézni a patak csobogását, olyankor mindig jól érzem magam.
+Ezek nagyon meglepő gondolatok egy anyaghalmaz részéről, már ha az hogy gondolkodik nem volna önmagában elég furcsa.
+Feltételezem tehát hogy van lelkem.
+
+Ha semmi sem vész el, csak átalakul, akkor pont a lélek veszne el?
+Valószínűtlen.
+Ellenkező esetben viszont a lelket valami mögöttes szubsztancia alkotja, ami pedig a maga atomi szintjén bizonyára ugyanúgy örökéletű, mint az anyag.
+Ha ez igaz, akkor viszont mindenkiben örökéletű, így a dédszüleimben és a gyermekeimben is.
+Az örökkévalóságban mindnyájan egyforma idősek vagyunk tehát, nemcsak fizikai, de lelki és szellemi részünk alkótóelemei tekintetében is.
+
+Ha a gyermekem azonos korú velem, akkor igyekszem nem elnyomni őt.
+Szülőként a feladatom szeretni és tájékoztatni, és csak a legszükségesebb esetben korlátozni.
+Ráadásul amint egyenrangúnak tekintem őt, máris megnyílok arra a rengeteg mindenre amiről pedig ő tájékoztat engem.
+Erről majd az utolsó részben fogok beszélni.
+
+Ameddig nincs képünk arról, hogy mi az ember helye és mi az emberi élet értelme, addig gyermekeinket a céltalan létre hívjuk.
+Ez bizonyos mértékig állati jellegű magatartás szülők részéről.
+
+Azt hiszem -- és ebben számos ősi és filozófiai írás is megerősít --, hogy az élet célja a visszatérés a már említett ősállapothoz, a világmindenséggel és Istennel való teljes harmóniához.
+Praktikusan és nagyon leegyszerűsítve a dolgot, számunkra ez a lelki és szellemi választása az anyagi helyett, az anyagban pedig a természetes választása a művi helyett.
+
+Az embernek nem az volna a dolga, hogy szétgányolja azt ami természetes csak azért mert hatalmában áll, hanem az, hogy szerető szívvel finoman ékesítse azt.
+
+Felvetődik a kérdés, hogy vajon családosként vagy önmegtartóztatásban lehet-e inkább beteljesíteni az emberi életet?
+Számos filozófia szerint a beérkezéshez közel álló lelkek számára inkább az utóbbi az üdvös.
+Nem véletlen tehát a papi cölibátus.
+Ha ez így is van, valószínűleg a legtöbb lélek nem ennyire fejlett.
+Nekik a házasság és a családosság kiváló lehetőség a fejlődésre.
+
+Diával mi a kapcsolatunk elejétől kezdve tükröt tudtunk tartani a másiknak.
+Mikor ő szembesít egy hibánkal az első reakció általában az elutasítás.
+Hamarosan viszont többnyire elfogadjuk a kritikát ezzel megnyitva a lehetőséget a javulás felé.
+Ez házasságunk egyik fő pillére.
+
+Ha tehát a párunkkal jobban fejlődhetünk mint önmagunkban, akkor nyilvánvalóan nem érdemes egyedül próbálkozni.
+Ha ehhez hozzávesszük azt, hogy mennyit fejlődhetünk a gyermekeink által, akkor a család igazi lélekemelő közegnek tűnik, különösen ha egyben szeretettér is.
+Úgy vélem, hogy a szeretetre való megnyílást nagyban segítheti a család.
+
+Sajnos azt tudni kell, hogy meglévő töréseinket tovább fogjuk adni a gyermekeinknek, bár remélhetőleg visszafogottabb formában.
+Egy családban gyakran adódnak kiborító helyzetek, amiket az éretlen szülő nem tud jól kezelni.
+A gyermeknek ez mind bevésődik, különösen akkor, ha ő az áldozat.
+A szülő hamar rájön, hogy túlreagálta a dolgot, és szenved a megbánástól és az önsanyargatástól.
+A gyermek később felnőttként ugyanígy fog reagálni hasonló helyzetekben.
+
+{Dr.} Máté Gábor és más források szerint is az első néhány évben különösen érzékeny a gyermek a kapott mintákra.
+Nem ismerek senkit, aki a Máté által érettnek nevezett állapotban lenne; mi magunk is igen távol vagyunk még ettől, hiába van érettségi bizonyítványunk.
+Ő azt mondja, hogy az éretlen ember a külső körülményektől függ: ha minden rendben van körülötte, akkor boldog, de amint valami ezt megzavarja, akkor egyből kiborul, tehetetlen, dühös, boldogtalan.
+Ezzel szemben az érett ember szilárd belső békével bír és a külső körülmények nem képesek kizökkenteni nyugalmából.
+Ezek szerint, ha nem vagy Buddha, akkor annak kárát látja a gyermeked, ha pedig az vagy, akkor valószínűleg nem a családos utat választottad.
+
+A baj mindig mibennünk van, éretlen, önuralomhiányos felnőttekben.
+Hogyan lehet, hogy a szülők az egyik pillanatban gyönyörködnek a gyermekükben, nem sokkal később pedig jellemtől függően kiabálnak vele, megrázzák őt, megütik őt, sőt olyan is előfordul, hogy megfojtják ezt a bájos teremtést?
+Lássuk be, csak a fokozatok mások, a probléma gyökere azonos.
+Mit tett a gyermek?
+Talán bömböl és nem tudjuk megnyugtatni?
+Netán nem követi az utasításunkat bármennyire is az ő érdekét szolgálná és bármennyire is próbáltuk ezt az értésére adni?
+Minthogy ezeket a helyzeteket minden szülő megtapasztalja, ezért úgy fest, hogy a gyermek részéről ez természetes viselkedés.
+
+A mi bajunk nem is a gyermekkel van, hanem önnön tehetetlenségünkel.
+A tehetetlenségünk felett érzett düh olyan mélyről jön, hogy gyakran megállíthatatlanul cselekszünk, mindenféle önkontroll nélkül.
+Belénk van drótozva a düh és az aggresszió, és ahogy már említettem, viselkedésünk által a gyermekeinkbe is be lesz.
+Mi is így kaptuk.
+
+Egy gyermek felett módunkban áll hatalmaskodni annak ellenére, hogy ettől csak mi válunk szánalmasabbá.
+Ha az ő lelke ugyanúgy örökkévaló mint a mienk, akkor a lényegi részét tekintve ez az apró lény velünk egyidős és egyenrangú.
+Bizonyosan káros mindkét fél számára a szellemi és a fizikai erőszak minden formája.
+Szerintem nem én vagyok az egyetlen szülő, aki erre jutott, és ahányszor elveszti a türelmét, annyiszor szenvedi ezt meg pár pillanattal később.
+Itt van mindjárt Dia is mellettem ugyanebben a cipőben.
+
+Iszonyatos munka önmagunk legyőzése és az önuralom megteremtése.
+Sokak szerint ez egy életen át tartó folyamatos küzdelem.
+Ha viszont minden sikertelen alkalommal ártunk a gyermekünknek, akkor nem hogy egy élet, de még egy nap is keservesen soknak tűnik ebben az állapotban.
+Mégiscsak Buddhának kellene lenni, mielőtt az ember gyereket vállal.
+
+%\page
+\subsubject{A férfi eredendő szerepe a családban.}
+
+Az ember helye megvan; most beszélnék a nemek szerepéről.
+
+\startkerdes[middle]
+A ti családotokban mi a férfi szerepe?
+\stopkerdes
+
+A férfi és a női szerepek eredendően ki vannak jelölve, és ezeket az ember réges régen lejegyezte.
+A dualitás az észlelt világ egyik legfontosabb vonása.
+Az embernél a kettősség a két nem különválásában és különbözőségében jelentkezik.
+Az ember évezredekkel ezelőtt két csoporba rendezte a világ duális jegyeit a nemekkel együtt.
+
+A kínaiak ősi dualizmusa a negatív jin és a pozitív jang princípiumokban nyer kifejezést.
+A jin a sötét, a hideg, a Hold, az anyagi, a nőiesség.
+A jang a fény, a meleg, a Nap, a nem anyagi, a férfiasság.
+Megjegyzem, itt nem a jó és a rossz ellentétét látjuk, csak a megélt világ két pólusának kifejeződéseit.
+Maguk a princípiumok tehát neutrálisak.
+
+A nő, az anya, ahogy a szóban is benne van: anyag.
+Hasonlóan, mater és matéria.
+A nők ciklusát nem véletlenül a princípiumuk égi képviselője, a Hold vezérli.
+
+De térjünk át a férfira, és arra, hogy milyen szerepet jelöl ki neki a világ rendje!
+A férfinak fényt és meleget kell árasztania magából.
+Lám a Hold milyen lenyűgöző, ha a Nap megvilágítja!
+A Hold nélkül alig volna fény az éjszakában.
+A Nap nélkül viszont fény sem volna.
+
+Mindebből az következik számomra, hogy férfiként a családban nekem kell képviselnem az anyagon túli, az égi, a spirituális értékeket.
+Ma úgy érzem, hogy ha döntően anyagi vágyakat és célokat kergetnék, azzal egyúttal femininebbé is válnék, ahogy voltam is korábban amikor még nem volt erős lelki motivációm.
+Ilyenkör a nő könnyen domináns szerepbe kerülhet, hiszen az anyagi út az ő számára nem, a férfinak viszont idegen terep.
+
+Ha viszont békét és szeretetet árasztok magamból, akkor az asszonyom is ezt fogja visszatükrözni a környezete és a gyermekek felé.
+Magamban kell megtalálnom ezek forrását ahogy a Nap is önmagából sugározza fényét.
+
+%\page
+\subsubject{Mi kell a családalapításhoz?}
+
+\startkerdes[middle]
+Mit gondoltok, mire van szükség ahhoz, hogy családot alapíthasson egy emberpár?
+\stopkerdes
+
+Korábbi barátnőimmel ellentétben Diát nem érdekelte, hogy nincsenek anyagi ambícióim.
+Általa tudtam végre a kibontakoztatni az addig elásott önmagamat, ő pedig én általam.
+Ez persze nem ment simán: mindketten meg kellett szenvedjünk bizonyos időszakokat.
+
+Dia kitartóan hitte, hogy amikor arról beszélek, hogy miként akarok javítani magamon, akkor azok nem üres szavak, hanem valódi törekvést takarnak.
+Mikor pedig az ígért változások egy része még ha visszaeseésekkel is, de valamelyest megvalósult, és ezáltal érdemben javult a kapcsolatunk, ő is lendületbe jött és elkezdtünk igazán összehangolódni.
+Ez a folyamat többet jelentett minden anyagi dolognál és ez lett az alapja a családunknak.
+Úgy is mondhatnám, hogy a családalapításunk ott kezdődött el, amikor mindketten kinyilvánítottuk a jó iránti törekvésünket, hitünket a másikéban, és azt, hogy támogatni fogjuk őt benne.
+
+Különbözőek a hibáink, a függőségeink, és a töréseink, de senkit sem ismerek, aki mentes volna ezektől.
+Miközben igyekszünk túllépni valamelyiken, újra és újra vissza fogunk esni bele, bár remélhetőleg egyre kisebb mértékben.
+Ha a párunk kilencvenkilenc visszaesés után századszor is hisz bennünk, sőt eközben elöl jár a saját jó példájával és ezzel motivál bennünket, akkor előbb-utóbb le fogjuk küzdeni a belső ellenséget.
+Ha ez sikerül, akkor nem csak a személyiség javul, de a kapcsolat is erősödik és a szeretet is fokozódik.
+
+Ha a férfi és a nő egészséges, boldog, fejlődik lelkileg, és kialakította a szeretetteret, jöhetnek a gyermekek.
+
+%\page
+\subsubject{A családalapítás anyagi háttere.}
+
+Ebben a listában nem említettem anyagi feltételeket, holott sokan annak függvényében vágnak bele a családalapításba.
+
+Azt gondolom, hogy az anyagi alapok az anyával jórészt adottak: ha nem éhezik és nem ázik és fázik akkor a gyermek sem fog.
+
+Sosem felejtem el, amikor a gyermekvállalás küszöbén egy beszélgetésünk alkalmával én anyagi aggályokkal álltam elő, amire Dia annyit válaszolt, hogy mit aggódok, nem eszik sokat az a gyerek, másrészről pedig nem én mondom-e mindig, hogy ebben az országban senki nem hal éhen?
+Azóta kiderült, hogy bizony a gyermek sokat eszik, főleg az ő melléből.
+
+Ma már nem félek a vagyoni szűkösségtől, de a szellemitől annál inkább.
+Mint közgazdászt, nem tanítottak a helyes háztartási gazdálkodásra.
+Ugye vannak a háztartások, a vállalatok, és az államok.
+Nos, e háromból az utóbbi kettő gazdálkodását tanítják az egyetemen.
+A jelenlegi rendszer motorja a pénzben mért növekedés amit a fogyasztás hajt.
+A termékek és szolgáltatások folyamatosan kiszorítják a saját megoldásokat ezáltal bővül a pénzben kifejezett gazdaság, de sajnos az ember kiszolgáltatottabbá válása árán.
+A túlzott fogyasztás pazarló és környezetszennyező.
+Seneca szerint nem az a szegény aki vagyontalan, hanem aki mindig többet akar.
+
+Hamarsan megfogalmzódott bennem a minimumra való törekvés útja, akkor még csak a pénzáramra vonatkoztatva.
+Egy olyan családot, ami sok pénz beáramlása alapján éli életét, nagyon meg tud viselni az, ha valamilyen okból a pénzbőség lecsökken.
+Ez nagy nyomást helyez a pénzkeresőkre.
+Nekem nem kell az ebből eredő stressz, a hajsza, időhiány, és a betegségek.
+
+A cél ehelyett az lett, hogy minél kevesebb pénz beáramlására legyen szükségünk.
+Megfordítottam „az idő pénz” kifejezést: a pénz idő.
+Nem arról beszélek, hogy szűkösködjünk, hanem hogy keressük azokat a megoldásokat, amelyek segítségével kevesebbet kell boltba járni, és kevesebb szolgáltatást kell igénybe venni.
+Persze számos dologról hamarosan ki is derül, hogy nincs is rá szükségünk.
+
+A saját megoldások is időigényesek, de ezek végzése közben magunk közt vagyunk és ezt az időt egymással töltjük.
+Ez egyrészt élmény, másrészt megtakarítás, és nem utolsó sorban útravaló tudás a gyermekeinknek az életre.
+Dia tökéletesen magáévá tette a minimumtörekvést, és rendkívüli találékonysággal helyettesíti a boltit a sajáttal, a bonyolultat az egyszerűvel.
+Számomra ebben is megnyilvánul az, hogy milyen eredendő tehetséggel bír a nő az anyagi dolgok intézésében.
+
+Ma úgy érezzük, hogy sok lábon állunk, mert egyre több mindent tudunk nemcsak a magunk számára de szükség esetén akár pénzkereseti céllal is előállítani.
+A megtakarításainknak és az állami, valamint a tágabb családi segítségnek köszönhetően sikerült egy családi birtokra szert tennünk, ami remélhetőleg tovább fogja csökkenteni a bolti élelmiszer iránti szükségletünket.
+Ez nem csak még több megtakarítást, de reményeink szerint egészségesebb életmódot is fog jelenteni számunkra.
+Talán mondanom sem kell, hogy ökológiai gazdálkodást szeretnénk folytatni: egyesek esetleg hallhatták már a permakultúra és az alkalmazkodó gyümölcsészet kifejezéseket amik talán a legjobban jellemzik a törekvéseinket.
+
+Utólag örülök neki, hogy több év alatt fokozatosan, lépésről lépésre jutottunk el idáig, és nem egy nagy ugrással próbálkoztunk mert abba esetleg beletörtünk volna.
+
+Úgy hiszem, hogy a kisbaba és a gyermek igénye az éhséget és az alapvető gondoskodást követően már szellemi természetű: az érzés, hogy szeretnek és elfogadnak úgy ahogy vagyok.
+Ha a szeretet nem csak a gyermek felé irányul, hanem töretlenül áramlik a felnőttek között is, akkor megvalósul a már említett szeretettér.
+Ha ez is megvan, akkor pedig ezen felnőttek gyakori jelenléte biztosítja számára a nyugalmat, hogy a világ egy szeretettel teli és kellemes hely.
+
+Megjegyzem, Magyarország talán a leginkább jóléti állam a Földön a családok számára.
+Az anyák három évig otthon maradhatnak a gyermekkel, és a pénzbeli támogatások is igazán nagylelkűek az állam részéről.
+Azzal, hogy az anyák nincsenek egyből visszaterelve a munkaasztalhoz, van lehetőségük érdemben anyatejjel, mellből táplálni a gyermekeket.
+Minden anyát arra buzdítok, hogy tegyen így!
+
+%\page
+\subsubject{Az apai vízió szükségessége a család fizikai és lelki útjáról.}
+
+Az anyagi feltételek után lássuk a szellemi oldalt!
+
+A férfinak ideális esetben már a nővel való találkozását megelőzően kialakult képe kellene legyen a jövőbeli családjáról.
+Tudnia kéne, hogy miért akar családot, és hogy a családját mire teszi fel.
+Ehhez a családképhez kellene asszonyt keressen, akivel aztán közösen dolgozhatják ki a részleteket.
+Ezt nevezem apai víziónak.
+
+Mindig is vonzódtam a természethez.
+Ha az erdőben vagyok mindig elönt a nyugalom.
+Ugyanígy érzek a vízparton is.
+Diával a nagyobb nyaralásaink mindig vadkempinges utak voltak, előbb autóval, később már kerékpárral.
+A vizió kialakulásában ez a vonzódás volt talán a leginkább meghatározó tényező.
+
+Talán egy év is eltelt úgy, hogy gyermeket szerettünk volna, mielőtt az utolsó kettesben töltött vakciónkra indultunk.
+Viszont a sikertelen időszak, ami közben még egy korai vetélés is volt, nem volt hiábavaló.
+
+Engem talán pont a sikertelenség vont be ténylegesen a családalapításba, ez által lettem igazán eltökélt benne.
+Emlékeim szerint az elején részemről hiányzott a valódi akarat.
+Nem képzeltem még el a családomat és önmagamat benne.
+Hiába mentem el urológushoz hogy igazolja a nemzőképességemet mert a nemzőképtelenségem oka a fejemben volt.
+
+Diában már dolgozott az ősi vágy a gyermek után, fejben tehát nála nem volt gond.
+Ő viszont a természetgyógyász nőgyógyásza segítségével próbálta helyrehozni azt amit a sok éves fogamzásgátlás okozhatott benne.
+
+A férfi tehát fejben, a nő pedig testben nem volt kész.
+
+Egy idő után aztán elengedtük a vágyat.
+Egy alkalommal azt mondtam Diának, hogy mit szólna hozzá, ha ezennel örökre búcsút intenénk a fogamzásgátlásnak és ha tíz gyermekünk lesz akkor tíz legyen, ha pedig egy sem, akkor pedig ezer meg ezer felhőtlen szerelmeskedés várjon ránk?
+Örömmel mondott igent és azóta ezekkel a kérdésekkel nem kell foglalkoznunk.
+
+Elgondolkodtam azon, hogy mi történik, ha elkezdenek jönni a gyermekek.
+Az élet céljának tisztázásáig ekkor még nem jutottam el, de addig igen, hogy kéne egy eszme, ami irányt szab a családnak.
+Nos, eszmékben bővelkedtem mindig is, lehetett tehát válogatni.
+
+Rájöttem, hogy ha az eszme értékes és ezt az értéket sikerül a gyermekeinknek is átadni úgy, hogy ők is késztetést érezzenek majd arra, hogy ugyanígy tegyenek, akkor ezzel dinasztiát alapítanánk.
+Egy idea ráadásul sokkal jobban átadható a generációk sokaságán, mint egy mesterség vagy egy birtok.
+
+Csehországban aztán a Lipno partján, a természet ölén sikerült magunk mögött hagyni minden városi és munkahelyi nyűgöt és stresszt.
+Később mindketten tudtuk, hogy melyik volt a fogantatás pillanata.
+
+Ekkor még nem volt se kiválasztott eszménk, se tiszta víziónk, de minden ott volt már bennünk félig készen.
+A várandósság kilenc hónapja alatt aztán kimunkáltuk ezeket.
+
+Érezhetően elkezdtünk megváltozni.
+Először is leszoktattuk magunkat a csúnya beszédről amit nyilvánvalóan nem akartunk átadni a gyermekeinknek.
+A módszer egyszerű volt és nagyon hatásos: ha kiszaladt valami nem szép a szánkon, akkor hangosan hozzátettük akár mások előtt is, hogy ,,nem szabad csúnyán beszélni''.
+
+Az anyagiak miatt ekkor már cseppet sem aggódtam.
+Sokkal inkább az foglalkoztatott, hogy milyen sok alapvető dolgot nem tudok, amit majd meg fog kérdezni tőlem a gyermek.
+A legjobban az zavart, hogy nem ismerem az élőlényeket.
+Egyetemi diploma ide vagy oda, négy éve még nem tudtam volna megkülönböztetni a tölgyet az akáctól.
+Bevallom viszont, ezen a területen máig siralmas a tudásom.
+
+Barátaink ajánlották az {\em Elveszett boldogság nyomában} című könyvet, amit elolvastunk mind a ketten.
+Rájöttünk, hogy éppen azt az ősi természetes békét és szerető közeget keressük, amiben a könyvben bemutatott bennszülöttek élnek.
+A vízió tehát kívülről érkezett és még nem alakítottuk magunkhoz, de erre már nem kellett sokat várni.
+
+Ráébredtem, hogy a legfontosabb teendőm az, hogy keressem a belső békét, valamint teremtsem meg az otthoni tartós jelenlét feltételeit.
+Annál is inkább mert már a várandós nőnek is nagyon jó, ha vele van az apa.
+Nekem ebben is szerencsém volt: a számítógépes programozást könnyű összeegyeztetni az otthon maradással.
+
+Mára a vízió teljes: mi és a gyermekeink a Paradicsomban itt a Földön.
+Az arcokon őszinte derű: a paradicsomi harmóniát belül éljük meg.
+A hátterében lehet ipari negyed és betondzsungel, minket nem zavar.
+Szedjük a gyümölcsöt a kosarainkba.
+
+%\page
+\subsubject{Az apai jelenlét fontossága és értéke a várandós asszony, majd a gyermekágy és a kisgyermek mellett.}
+
+\startkerdes[middle]
+Mennyi időt töltsön az apa a családjával? Mit gondoltok erről?
+\stopkerdes
+
+Amikor az említett könyvben azt olvastam, hogy ha a szülés után az anya nem kapja meg azonnal a gyermekét, akkor azt úgy éli meg, hogy a gyermek meghalt, és ezzel helyrehozhatatlan kárt szenved a kötődés kettejük között, akkor abban biztos voltam, hogy olyan helyen nem szülünk, ahol elveszik az újszülöttet.
+
+A kedves védőnőnk irányba állított minket és Dia a mohácsi kórházba ment szülésfelkészítésre.
+Minél többet tudott meg a szülésről, annál erősebb lett a hite önmagában, hogy meg tudja csinálni.
+Én ennek nagyon örültem, és hamarosan biztosra vettem, hogy Dia meg tud szülni egy babát akár egyedül és minden segítség nélkül is.
+Ezt egyszer meg is említettem egy szüléses filmvetítés kapcsán kialakult beszélgetésen ahol talán egyedüli férfiként voltam jelen.
+(A film egyébként arról szólt, hogy mennyire fontos, hogy a baba végigcsússzon a szülőcsatornán és így beoltódjon az anyai baktériumflórával.)
+
+A mohácsi szülésfelkészítés közepe felé már tudtuk, hogy otthonszülést szeretnénk.
+Ez az elhatározás nem megy simán, tudni és hinni kell hozzá.
+Tudni a szülésről magáról és hinni az anyában, a babában, és a természetes folyamatokban.
+Kiderült, hogy a szülést övező félelmeink tulnyomó többsége alaptalan mítosz.
+Ezeket hamarosan felülírta a szerzett ismeret.
+Budapesten további négy napot voltunk közösen bábai szülésfelkészítőn, aztán mindketten elolvastunk egy-két vajúdásról és szülésről szóló könyvet és ezzel felkészültebbnek éreztük magunkat mint a nagy többség.
+Minél többet tudtunk meg a várandósságról, a vajúdásról, a szülésről, és a gyermekágyas időszakról, annál intimebbé váltak ezek a dolgok számunkra.
+
+Azt gondolom, hogy nagyon kevés olyan várandós nő lehet, aki a párja támogatása nélkül bele merne vágni a természetes szülésbe, sőt talán nincs is ilyen.
+Hiába hittük, hogy ez a legjobb az anyának és a babának is, és hiába győztük már le az önnön félelmeinket, a társas környezetünk ellenszelében a döntésünket minduntalan, századszor is meg kellett védeni, magyarázni, indokolni.
+Gyakran miután a másik fél kifogyott az érvekből, azzal zárta a témát, hogy mi tudjuk, de szerinte ez akkor is felelőtlen.
+Ezek először rosszul estek nekünk, de később már megszoktuk és inkább csak az volt nyűg, hogy nem tudtuk elkerülni az efféle beszélgetéseket, a nagy pocak ugyanis látszik, a hazugságról pedig már leszoktunk.
+Az ember olyan hülyeségeket és rémtörténeteket hall a szülés kapcsán, hogy elképesztő, ráadásul az anyát ezekkel traktálni kifejezetten káros.
+Bár többször tudtam volna Dia és mások közé állni, hogy megvédjem őt tőlük!
+
+Az ideális várandósság békés és harmonikus; az anya telve van pozitív gondolatokkal, mosolyt és bíztatást kap mindenkitől.
+Ha a várandós anya stresszes és frusztrált, fél, vagy bizonytalan, az átragad a magzatra, és annak életreszóló negatív személyiségjegyeket véshet be.
+Ha pedig ezeket nem sikerül feloldania az anyának a vajúdás kezdetéig, akkor azt esetleg közben kell megtegye, ami sokáig tarthat.
+Az apa felelőssége óriási: az ő feladata volna, hogy az anya kilenc hónapig a béke szigetén érezhesse magát.
+Mondanom sem kell, hogy nem vagyok elégedett önmagam ebbéli teljesítményével.
+A feladat persze nagyon emebrt próbáló.
+Időnként az anya csapong, örül aztán pedig sír, kedves, de aztán következő pillanatban pofát vág és beszól.
+Megint csak oda jutottam, hogy Buddhának kéne lenni, vagy elkerülhetetlenül ártok, még ha a végső mérlegem pozitív is marad.
+Magamra maradtam: miközben igyekeztem támasza lenni az anyának, nekem nem volt segítségem abban, hogy feldolgozzam az apává válással kapcsolatos érzéseket.
+
+A második várandósság alatt volt egy mélypontom is, mikor úgy éreztem, hogy Andort kicsit elvesztettük, és egy más szemléletű befolyás erősebbnek tűnik a mienkénél.
+Ez alapján az egész családképem megingott.
+Lehangolódtam és ez rányomta a bélyegét a kettőnk viszonyára is Diával.
+Sajnos elég mélyre kerültünk emiatt és ez az állapot talán két hónapig is tartott.
+Végül egy őszinte ámde nehéz beszélgetés egycsapásra megoldott mindent nagyjából két hónappal Teodor születése előtt.
+Ki a megmondhatója, hogy nem ez az időszak okozza-e azt, hogy Teodor lassan egy éves, de még sosem volt képes négy órát egyhuzamban aludni?
+Megjegyzem, az Andorral kapcsolatos aggodalmam alaptalan volt.
+
+Mindkét fiam születésénél ott voltam.
+Andor úgy született, hogy Dia közben belém kapaszkodott, Teodor pedig a kezeim közé érkezett.
+Ég és föld volt a különbség a két vajúdás között: Andor esetében negyvenhat órát számoltunk, míg Teodornál néhány óra volt mindösszesen.
+Közvetlenül Andor jötte után Dia mosolyogva mondta, hogy jó volt, és szívesen szül még több gyermeket is.
+
+A gyermekágyas időszak nagyszerű.
+Az apai feladatok egyszerűek: nem szabad kiengedni az anyát az ágyból, kizárólag mosdóba és tisztálkodni, de akkor is ott kell lenni mellette arra az esetre, ha elájulna.
+Egy férj ilyenkor elemében lehet.
+Bent a szobában a csodálatos felesége és a pici babája.
+Öröm kiszolgálni egy nőt, aki az imént szült nekünk gyermeket.
+Sosem élveztem annyira a házimunkát, mint a gyermekágy alatt.
+
+Lassan azonban az újszülöttel egyre több a munka.
+A testvérrel is kell foglalkozni.
+Hamarosan a lakás egy csatatérré változik, amit hiába próbál az ember megszűntetni, mert lehetetlen.
+
+Amikor anya és apa együtt vannak, akkor gyakran ki tudják egymás segíteni, ha látják a másikon, hogy kezdi elveszíteni az erejét vagy a türelmét.
+Azt vettem észre, hogy ha Diát türelmetlennek látom, akkor engem gyakran megszáll a nyugalom, és átveszem a helyét.
+Ugyanez fordítva is igaz.
+Ott kell lenni tehát a gyermekek és az anya mellett az apának.
+Mindenki lelki fejlődése szempontjából az az ideális, ha a család együtt tölti az ideje nagy részét.
+Ennek az értéke megfizethetetlen.
+
+Nem kell tartani a tétlenségtől.
+A kicsi gyermekek mellett is kell ám robotolni.
+Ha elmegyek otthonról dolgozni, az gyakran inkább pihenés.
+Mondom ezt annak ellenére, hogy nálunk Dia mindig ott van a gyermekekkel, így nekem sosem kellett egyedül végeznem az otthoni teendőket a gyerekek mellett.
+Minden tiszteletem az anyák előtt.
+Sokan közülük a családi feldatokból sajnos szinte mindent egyedül kell végezzenek, néha könnyek és fogcsikorgatások közepette.
+Attól tartok, hogy ilyenkor kárt szenved az anya, a gyermek, és közvetve a szülői kapcsolat is.
+
+%\page
+\subsubject{Fejlődési lehetőségek sokasága és a béke elérésének küzdelme a családban.}
+
+Végezetül ahogy ígértem, beszélnék arról, hogy miként fejleszthetnek bennünket a gyermekeink.
+
+Ha szellemileg megnyílunk a kisbabánk felé és nem hagyjuk magunkat megtéveszteni a látszólagos tehetetlenségétől, akkor megláthatjuk benne a teljes értékű embert.
+Ez az ember a forrástól érkezett hozzánk eltelve annak tiszta vizével.
+Mi is elláttuk útravalóval, mégpedig az anyaméhben érzett ingereken keresztül.
+
+A kis teste kezdetleges, és csaknem irányíthatatlan.
+Az első évben a környezeti ingerek gyakran teljesen elárasztják, hiszen még nem tanulta meg, hogy miként szűrje azokat.
+Hányszor tűri békésen a tehetetlenségét, miközben mi felnőttek milyen nehezen kezeljük azt?
+
+Hamarosan megcsillantja további erényeit.
+Tiszta és tökéletes az öröme és bánata is.
+Mosolya mint Buddháé.
+
+Tökéletesen megbocsátó a már említett szülői túlkapásokal.
+Nyugodtan köszönjük ezt meg neki és mondjuk el, hogy eztán még jobban fogunk igyekezni békések maradni.
+
+Később kiderül, hogy ösztönösen törekszik a jóra, még akkor is amikor szándékosan ellenünk tesz.
+El fogja tőlünk tanulni, hogy mi akkor a teendő, ha egy nálunknál gyengébb valaki nem engedelmeskedik az akaratunknak.
+Ebben jó mintát adni talán az egyik legnehezebb szülői feladat.
+Szerencsére nem egy alkalomból tanulja meg, hogy mi a követendő magatartás.
+
+A legnagyobb győzelem önmagunk legyőzése.
+Ebben nincs jobb tréner a gyermekeknél, akik erőtlen félként oktatnak minket.
+Csábítóan gyengék, de ha őket győzzük le magunk helyett, akkor elbuktunk.
+Ellenkező esetben szinte azonnal képesek minket megjutalmazni valamilyen módon.
+
+Mint mondtam Dia is nagyszerűen képes tükröt tartani nekem, de a gyermekeim így is sokkal jobbak ebben nála, kezdetben azzal, hogy kinevetnek, képsőbb pedig, hogy utánoznak.
+Rengeteget tanultam magamról tőlük.
+A köztem és köztük memgutatkozó tisztaságbeli különbség szerénységre kell hogy intsen és belső mosakodásra kell buzdítson.
+Az idő ráadásul szorít, mivel ők rohamosan adaptálódnak a környezetükhöz és hozzám.
+Hamarosan a képzés véget ér és már nem lesz mód javítani a jegyeken, miközben a végső mérleg talán egy életre meghatározza majd a kapcsolatunkat.
+
+A gyermekeinkről visszacsillan a keresett ősi harmónia amit követve talán előrébb juthatnánk a beteljesülés felé mint bármilyen irodalom vagy közösség által.
+
+Köszönöm a figyelmet!
+
+\emptylines[1]\noindentation Hosszúhetény, 2018. május 5.
+
+\stopsubject
+
+\stopbodymatter
+\stopproduct
+\stopproject
