@@ -119,10 +119,10 @@ without success. Finally, I wrote the following Python script to
 get the thing done.                                             
 
 Once splitted, I used the great <a href="http://www.mp3tag.de/en/">Mp3tag</a> software for the tagging.
-  
+
 --[ <a href="http://raw.githubusercontent.com/SzieberthAdam/SzieberthAdam.github.io/master/code/py/youtubesplitter.py">youtubesplitter.py</a> ]================================================================------------------------
 
-<div class="highlight"><span class="sd">&quot;&quot;&quot;</span>                                                                                                             
+<div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>                                                                                                             
 <span class="sd">youtubesplitter.py</span>                                                                                              
 <span class="sd">2021 Szieberth Ádám - Public Domain</span>                                                                             
 
@@ -200,7 +200,7 @@ Once splitted, I used the great <a href="http://www.mp3tag.de/en/">Mp3tag</a> so
         <span class="n">command</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;ffmpeg -i &quot;</span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s1">&quot; -ss </span><span class="si">{</span><span class="n">c</span><span class="p">[</span><span class="s2">&quot;start_time&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1"> -to </span><span class="si">{</span><span class="n">c</span><span class="p">[</span><span class="s2">&quot;end_time&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1"> -c copy &quot;</span><span class="si">{</span><span class="n">po</span><span class="si">}</span><span class="s1">&quot;&#39;</span>                  
         <span class="nb">print</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>                                                                              
         <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="n">command</span><span class="p">)</span>                                                                                      
-</div>
+</pre></div>
 ------------------------================================================================------------------------
 
 </PRE></NOBR></CENTER>
