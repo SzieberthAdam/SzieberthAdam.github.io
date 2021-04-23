@@ -3,6 +3,17 @@ youtubesplitter.py
 2021 Szieberth Ádám - Public Domain
 
 This script splits a downloaded YouTube media file by its chapters.
+
+Usage:
+python youtubesplitter.py <myyoutubemediafile>
+
+Hint: call youtube-dl with the `--write-info-json` option previously.
+
+Notes:
+* If you have the media file downloaded already you can prevent its re-download
+  with the `--skip-download` youtube-dl option.
+
+* FFmpeg executable is assumed to be in your %PATH%.
 """
 
 import json
@@ -23,31 +34,18 @@ filename_replaces = {
     "*":  "_star_",
 }
 
-usage = """
-Hint: call youtube-dl with the `--write-info-json` option, then do the following
-command:
-
-python youtubesplitter.py <myyoutubemediafile>
-
-Notes:
-
-* If you have the media file downloaded already you can prevent its re-download
-  with the `--skip-download` youtube-dl option.
-
-* FFmpeg executable is assumed to be in your %PATH%."""
-
 if __name__ == "__main__":
 
     if len(sys.argv) < 2:
         print(f'ERROR! Path of media file is assumed as first argument.')
-        print(f'{__doc__}{usage}')
+        print(__doc__)
         sys.exit(1)
 
     p = pathlib.Path(sys.argv[1]).resolve()
 
     if not p.is_file():
         print(f'ERROR! Incorrect path.')
-        print(f'{__doc__}{usage}')
+        print(__doc__)
         sys.exit(2)
 
     pext = p.suffix.lstrip(".")
@@ -56,7 +54,7 @@ if __name__ == "__main__":
 
     if not pj.is_file():
         print(f'ERROR! Missing Info JSON.\nExpected the following file: "{pj}"')
-        print(f'{__doc__}{usage}')
+        print(__doc__)
         sys.exit(3)
 
     with pj.open("r", encoding="utf-8") as f:
