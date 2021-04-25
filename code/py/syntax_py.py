@@ -11,7 +11,7 @@ spaces to the end of each line.
 
 Usage:
 
-python syntax_py.py [margin] <mypyfile>
+python syntax_py.py [textwidth] [nohighlight] <mypyfile>
 
 Output goes to "<mypyfile>.html".
 
@@ -25,13 +25,15 @@ try:
 except ImportError:
     pygments = None
 else:
-    import pygments.lexers
-    import pygments.formatters
+    from pygments.lexers import PythonLexer
+    from pygments.formatters import HtmlFormatter
 
 import pathlib
 import sys
 
 if __name__ == "__main__":
+
+    options = {"nohighlight": False}
 
     if pygments is None:
         print(f'ERROR! Third party module `pygments` is missing.')
@@ -39,17 +41,22 @@ if __name__ == "__main__":
         print(__doc__)
         sys.exit(1)
 
-    if len(sys.argv) < 2:
-        print(f'ERROR! Path of a python file is assumed as last argument.')
+    if len(sys.argv) < 2 or not pathlib.Path(sys.argv[-1]).is_file():
+        print(f'ERROR! Path of a (Python) file is assumed as last argument.')
         print(__doc__)
         sys.exit(2)
 
-    margin = None
-    if 2 < len(sys.argv):
-        if sys.argv[1].isdecimal():
-            margin = int(sys.argv[1])
+    textwidth = None
+    for s in sys.argv[1:-1]:
+        if s.isdecimal():
+            textwidth = int(s)
+        elif s in options:
+            options[s] = True
         else:
-            print(f'ERROR! Integer margin size is assumed as first argument.')
+            print(f'ERROR! invalid argument: "{s}".')
+            print(f'Hint: Expected an integer textwidth or any of the following options:')
+            for so in options:
+                print(f'      * {so}')
             print(__doc__)
             sys.exit(3)
 
@@ -57,20 +64,21 @@ if __name__ == "__main__":
     pext = p.suffix.strip(".")
 
     with p.open("r", encoding="utf-8") as f:
-        code = f.read()
+        a = f.read()
 
-    highlighted = pygments.highlight(code, pygments.lexers.PythonLexer(), pygments.formatters.HtmlFormatter())
+    if not options["nohighlight"]:
+        a = pygments.highlight(a, PythonLexer(), HtmlFormatter())
 
-    codelinelens = [len(s) for s in code.split("\n")]
-    maxcodelinelens = max(codelinelens)
-    margin = margin or maxcodelinelens
-    if margin < maxcodelinelens :
-        print("ERROR! Too low margin size!")
-        print(f'Hint: Its minimum is the highest column number which is {maxcodelinelens}.')
+    alinelens = [len(s) for s in a.split("\n")]
+    maxalinelens = max(alinelens)
+    textwidth = textwidth or maxalinelens
+    if textwidth < maxalinelens :
+        print("ERROR! Too low textwidth size!")
+        print(f'Hint: Its minimum is the highest column number which is {maxalinelens}.')
         print(__doc__)
         sys.exit(4)
-    highlightedlinse = highlighted.split("\n")
-    result = "\n".join(s + (" "*(margin-w) if w else "") for s, w in zip(highlightedlinse, codelinelens))
+    a = a.split("\n")
+    result = "\n".join(s + (" "*(textwidth-w) if w else "") for s, w in zip(a, alinelens))
 
     po = p.parent / f'{p.stem}.{pext}.html'
 
