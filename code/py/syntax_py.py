@@ -66,9 +66,6 @@ if __name__ == "__main__":
     with p.open("r", encoding="utf-8") as f:
         a = f.read()
 
-    if not options["nohighlight"]:
-        a = pygments.highlight(a, PythonLexer(), HtmlFormatter())
-
     alinelens = [len(s) for s in a.split("\n")]
     maxalinelens = max(alinelens)
     textwidth = textwidth or maxalinelens
@@ -77,6 +74,10 @@ if __name__ == "__main__":
         print(f'Hint: Its minimum is the highest column number which is {maxalinelens}.')
         print(__doc__)
         sys.exit(4)
+
+    if not options["nohighlight"]:
+        a = pygments.highlight(a, PythonLexer(), HtmlFormatter())
+
     a = a.split("\n")
     result = "\n".join(s + (" "*(textwidth-w) if w else "") for s, w in zip(a, alinelens))
 

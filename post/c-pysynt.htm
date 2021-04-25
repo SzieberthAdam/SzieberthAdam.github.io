@@ -3,7 +3,7 @@
 <HTML>
 <HEAD>
 <META http-equiv="Content-Type" content="text/html;charset=UTF-8">
-<TITLE>Syntax Highlighted Python Code</TITLE>
+<TITLE>Python Syntax Highlighter for adam.szieberth.hu</TITLE>
 <STYLE>
 a {
 color: #b548c9;
@@ -106,7 +106,7 @@ font-size: large;
 <CENTER><NOBR><PRE>[ <a href="../index.html">Back to the main page</a> ]
 
 
-<u>Syntax Highlighted Python Code</u>                                  
+<u>Python Syntax Highlighter for adam.szieberth.hu</u>                 
 
 I finished with  a Python script  which makes me able to  easily
 add syntax highlighted Python code to my pages.                 
@@ -115,7 +115,7 @@ This was a preparation step, as there are some Python scripts on
 the line to be shared soon!                                     
 
 The following code highlighted itself:                          
-  
+
 --[ <a href="http://raw.githubusercontent.com/SzieberthAdam/SzieberthAdam.github.io/master/code/py/syntax_py.py">syntax_py.py</a> ]------================================================================------------------------
 
 <div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>                                                                                                             
@@ -131,7 +131,7 @@ The following code highlighted itself:
 
 <span class="sd">Usage:</span>                                                                                                          
 
-<span class="sd">python syntax_py.py [margin] &lt;mypyfile&gt;</span>                                                                         
+<span class="sd">python syntax_py.py [textwidth] [nohighlight] &lt;mypyfile&gt;</span>                                                        
 
 <span class="sd">Output goes to &quot;&lt;mypyfile&gt;.html&quot;.</span>                                                                               
 
@@ -145,13 +145,15 @@ The following code highlighted itself:
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>                                                                                             
     <span class="n">pygments</span> <span class="o">=</span> <span class="kc">None</span>                                                                                             
 <span class="k">else</span><span class="p">:</span>                                                                                                           
-    <span class="kn">import</span> <span class="nn">pygments.lexers</span>                                                                                      
-    <span class="kn">import</span> <span class="nn">pygments.formatters</span>                                                                                  
+    <span class="kn">from</span> <span class="nn">pygments.lexers</span> <span class="kn">import</span> <span class="n">PythonLexer</span>                                                                     
+    <span class="kn">from</span> <span class="nn">pygments.formatters</span> <span class="kn">import</span> <span class="n">HtmlFormatter</span>                                                               
 
 <span class="kn">import</span> <span class="nn">pathlib</span>                                                                                                  
 <span class="kn">import</span> <span class="nn">sys</span>                                                                                                      
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>                                                                                      
+
+    <span class="n">options</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;nohighlight&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>                                                                            
 
     <span class="k">if</span> <span class="n">pygments</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>                                                                                        
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;ERROR! Third party module `pygments` is missing.&#39;</span><span class="p">)</span>                                              
@@ -159,17 +161,22 @@ The following code highlighted itself:
         <span class="nb">print</span><span class="p">(</span><span class="vm">__doc__</span><span class="p">)</span>                                                                                          
         <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>                                                                                             
 
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>                                                                                       
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;ERROR! Path of a python file is assumed as last argument.&#39;</span><span class="p">)</span>                                     
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>                                           
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;ERROR! Path of a (Python) file is assumed as last argument.&#39;</span><span class="p">)</span>                                   
         <span class="nb">print</span><span class="p">(</span><span class="vm">__doc__</span><span class="p">)</span>                                                                                          
         <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>                                                                                             
 
-    <span class="n">margin</span> <span class="o">=</span> <span class="kc">None</span>                                                                                               
-    <span class="k">if</span> <span class="mi">2</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">):</span>                                                                                       
-        <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">isdecimal</span><span class="p">():</span>                                                                             
-            <span class="n">margin</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>                                                                           
+    <span class="n">textwidth</span> <span class="o">=</span> <span class="kc">None</span>                                                                                            
+    <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>                                                                                    
+        <span class="k">if</span> <span class="n">s</span><span class="o">.</span><span class="n">isdecimal</span><span class="p">():</span>                                                                                       
+            <span class="n">textwidth</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>                                                                                  
+        <span class="k">elif</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">options</span><span class="p">:</span>                                                                                      
+            <span class="n">options</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>                                                                                   
         <span class="k">else</span><span class="p">:</span>                                                                                                   
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;ERROR! Integer margin size is assumed as first argument.&#39;</span><span class="p">)</span>                                  
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;ERROR! invalid argument: &quot;</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s1">&quot;.&#39;</span><span class="p">)</span>                                                           
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Hint: Expected an integer textwidth or any of the following options:&#39;</span><span class="p">)</span>                      
+            <span class="k">for</span> <span class="n">so</span> <span class="ow">in</span> <span class="n">options</span><span class="p">:</span>                                                                                  
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;      * </span><span class="si">{</span><span class="n">so</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>                                                                          
             <span class="nb">print</span><span class="p">(</span><span class="vm">__doc__</span><span class="p">)</span>                                                                                      
             <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>                                                                                         
 
@@ -177,20 +184,22 @@ The following code highlighted itself:
     <span class="n">pext</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">suffix</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>                                                                                  
 
     <span class="k">with</span> <span class="n">p</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>                                                                    
-        <span class="n">code</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>                                                                                         
+        <span class="n">a</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>                                                                                            
 
-    <span class="n">highlighted</span> <span class="o">=</span> <span class="n">pygments</span><span class="o">.</span><span class="n">highlight</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">pygments</span><span class="o">.</span><span class="n">lexers</span><span class="o">.</span><span class="n">PythonLexer</span><span class="p">(),</span> <span class="n">pygments</span><span class="o">.</span><span class="n">formatters</span><span class="o">.</span><span class="n">HtmlFormatter</span><span class="p">())</span>  
-
-    <span class="n">codelinelens</span> <span class="o">=</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">code</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)]</span>                                                           
-    <span class="n">maxcodelinelens</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">codelinelens</span><span class="p">)</span>                                                                         
-    <span class="n">margin</span> <span class="o">=</span> <span class="n">margin</span> <span class="ow">or</span> <span class="n">maxcodelinelens</span>                                                                          
-    <span class="k">if</span> <span class="n">margin</span> <span class="o">&lt;</span> <span class="n">maxcodelinelens</span> <span class="p">:</span>                                                                               
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ERROR! Too low margin size!&quot;</span><span class="p">)</span>                                                                    
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Hint: Its minimum is the highest column number which is </span><span class="si">{</span><span class="n">maxcodelinelens</span><span class="si">}</span><span class="s1">.&#39;</span><span class="p">)</span>                    
+    <span class="n">alinelens</span> <span class="o">=</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">a</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)]</span>                                                                 
+    <span class="n">maxalinelens</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">alinelens</span><span class="p">)</span>                                                                               
+    <span class="n">textwidth</span> <span class="o">=</span> <span class="n">textwidth</span> <span class="ow">or</span> <span class="n">maxalinelens</span>                                                                       
+    <span class="k">if</span> <span class="n">textwidth</span> <span class="o">&lt;</span> <span class="n">maxalinelens</span> <span class="p">:</span>                                                                               
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ERROR! Too low textwidth size!&quot;</span><span class="p">)</span>                                                                 
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Hint: Its minimum is the highest column number which is </span><span class="si">{</span><span class="n">maxalinelens</span><span class="si">}</span><span class="s1">.&#39;</span><span class="p">)</span>                       
         <span class="nb">print</span><span class="p">(</span><span class="vm">__doc__</span><span class="p">)</span>                                                                                          
         <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>                                                                                             
-    <span class="n">highlightedlinse</span> <span class="o">=</span> <span class="n">highlighted</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>                                                                  
-    <span class="n">result</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">s</span> <span class="o">+</span> <span class="p">(</span><span class="s2">&quot; &quot;</span><span class="o">*</span><span class="p">(</span><span class="n">margin</span><span class="o">-</span><span class="n">w</span><span class="p">)</span> <span class="k">if</span> <span class="n">w</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">highlightedlinse</span><span class="p">,</span> <span class="n">codelinelens</span><span class="p">))</span>       
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">options</span><span class="p">[</span><span class="s2">&quot;nohighlight&quot;</span><span class="p">]:</span>                                                                              
+        <span class="n">a</span> <span class="o">=</span> <span class="n">pygments</span><span class="o">.</span><span class="n">highlight</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">PythonLexer</span><span class="p">(),</span> <span class="n">HtmlFormatter</span><span class="p">())</span>                                               
+
+    <span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>                                                                                           
+    <span class="n">result</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">s</span> <span class="o">+</span> <span class="p">(</span><span class="s2">&quot; &quot;</span><span class="o">*</span><span class="p">(</span><span class="n">textwidth</span><span class="o">-</span><span class="n">w</span><span class="p">)</span> <span class="k">if</span> <span class="n">w</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">alinelens</span><span class="p">))</span>                      
 
     <span class="n">po</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">p</span><span class="o">.</span><span class="n">stem</span><span class="si">}</span><span class="s1">.</span><span class="si">{</span><span class="n">pext</span><span class="si">}</span><span class="s1">.html&#39;</span>                                                                     
 
