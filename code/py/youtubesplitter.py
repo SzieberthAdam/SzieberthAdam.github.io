@@ -72,7 +72,6 @@ if __name__ == "__main__":
         else:
             nrstr = f'{nr}.'
         po = pathlib.Path("".join(filename_replaces.get(c, c) for c in f'{nr:0>2} {title}.{pext}'))
-        command = "\n" * (1 if 1<nr else 0)
-        command += f'ffmpeg -i "{p}" -ss {c["start_time"]} -to {c["end_time"]} -c copy "{po}"'
-        print(command, end="\n\n")
+        command = f'ffmpeg -i "{p}" -ss {c["start_time"]} -to {c["end_time"]} -c copy "{po}"'
+        print("\n" * (1 if 1<nr else 0) + command, end="\n\n")
         os.system(command)
