@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<TITLE>Kōrkép 1.</TITLE>
+<STYLE>
+a {
+color: #b548c9;
+position: relative;
+text-decoration: none;
+}
+a:hover {
+border-bottom: 2px solid #b548c9;
+}
+body {
+  background-color: #000000;
+  color: #ffffff;
+}
+pre {
+display: inherit;
+font-family: monospace;
+font-size: large;
+}
+</STYLE>
+</HEAD>
+<BODY>
+<CENTER><NOBR><PRE>[ <a href="../index.html">Vissza a főoldalra</a> ]
+
+
+<u>Kōrkép 1.</u>                                                       
+
+A napokban ismét  megfogalmazódott bennem  egy javaslat az állam
+számára,  amit azóta elvetettem. Mindenesetre már régóta szeret-
+tem volna elkészíteni a hivatalos levél sablonomat <a href="http://www.contextgarden.net">ConTeXt</a>-re.  
+
+A program ebből a <a href="../files/context-hivataloslevel/level.txt">text fájlból</a> ilyen <a href="../files/context-hivataloslevel/level.pdf">PDF fájlt</a> készít. Formailag
+a magánszemélyek által küldött hivatalos levél általános alakját
+követi,  azaz a keltezés a  főszöveg alatt a bal oldalon, míg az
+elköszönés és az aláírás ezzel egy sorban a jobb oldalon helyez-
+kedik el. A program hivatkozási szám és melléklet részeket egye-
+lőre nem támogat, ezeket saját igény szerint adom majd hozzá.   
+
+A text fájl formátuma kötött: a program meghatározott sorrendben
+azonosítja be a levél elemeit.  A főszöveg esetében csak annyi a
+megkötés, hogy két bekezdés között egy üres sort ki kell hagyni.
+Én személy szerint minden mondatot külön sorba szeretek írni, és
+aszerint,  hogy a szövegszerkeszőm töri vagy sem a hosszú  soro-
+kat,  látom a teljes írásomat,  illetve azt, hogy mely mondataim
+lettek túlságosan hosszúak.                                     
+
+A fenti program első sorban magamnak készült,  ezért a telepítés
+nem egyszerű:                                                   
+
+1. ConTeXt telepítése                                           
+2. <a href="http://www.python.org">Python 3.8+</a> telepítése                                       
+3. adminisztrátori parancssorból: <i>pip install PyHyphen</i>          
+4. a hivatalos levélhez <a href="https://github.com/SzieberthAdam/SzieberthAdam.github.io/tree/master/files/context-hivataloslevel">szükséges fájlok</a> letöltése              
+
+A 4. pontban letöltött fájlok könyvtárából érdemes egy másolatot
+készíteni, és abban szerkeszteni a <i>level.txt</i> fájlt.  Ha ez kész,
+akkor a következőt kell tenni:                                  
+
+1. parancssorból futtatni a ConTeXt <i>setpath.bat</i> fájlját         
+2. ugyanebből futtatni a levél melletti <i>csinald.bat</i> fájlt       
+
+Ezzel elkészül a <i>level.pdf</i>, hurrá.                              
+
+Sajnos a dolog  bonyolultabb lett mint reméltem,  mert a ConTeXt
+valamiért képtelen a hosszú kettős mássalhangzók (ccs, ggy, lly,
+nny, tty, ssz, zzs)  visszatoldásos elválasztását (pl. visz-sza,
+megy-gyes) elvégezni. Ezért előbb Pythonnal feldolgoztatom a le-
+vél szövegét egy jobb szóelválasztó modullal (ez a PyHyphen), és
+az eredményeket összevetem a ConTeXt-tel. A különbségek listáját
+aztán visszakapja a ConTeXt, ami eztán már helyesen  fogja elvá-
+lasztani ezeket a szavakat.                                     
+
+</PRE></NOBR></CENTER>
+</BODY>
+</HTML>
