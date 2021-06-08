@@ -1,0 +1,21 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"emmet.excludeLanguages": ["http"],
+		"emmet.showExpandedAbbreviation": "never",
+		"files.eol": "\r\n",
+		"[html]": {
+			"editor.acceptSuggestionOnEnter": "off",
+			"editor.rulers": [64, 83, 112],
+			"files.insertFinalNewline": true,
+			"files.trimFinalNewlines": true,
+			"files.trimTrailingWhitespace": false
+		},
+		"html.autoClosingTags": false,
+		"html.format.endWithNewline": true
+	}
+}

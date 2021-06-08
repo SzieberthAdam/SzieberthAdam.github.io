@@ -1,0 +1,225 @@
+\startproject project_hivataloslevel
+
+\startluacode
+
+  userdata = userdata or {}
+  userdata.felado = {}
+  userdata.cimzett = {}
+  userdata.targymegjeloles = {}
+  userdata.megszolitas = {}
+  userdata.foszoveg = {}
+  userdata.keltezes = nil
+  userdata.udvozlesalairas = nil
+  
+  function userdata.beolvas()
+    local file = io.open("level.txt", "r")
+    local kezdo_allapotok = {"felado", "cimzett", "targymegjeloles", "megszolitas", "foszoveg"}
+    local kezdo_allapot = 1
+    local zaro_allapotok = {"keltezes", "udvozlesalairas"}
+    local zaro_allapot
+    local k, t
+    local elozo_sor = ""
+    for 
+      sor in file:lines() 
+    do
+      k = kezdo_allapotok[kezdo_allapot]
+      t = userdata[k]
+      if 
+        sor == ""
+      then
+        if 
+          sor ~= elozo_sor
+        then
+          if
+            kezdo_allapot < #kezdo_allapotok
+          then
+            kezdo_allapot = kezdo_allapot + 1
+          end
+          if 
+            kezdo_allapotok[kezdo_allapot] == "foszoveg"
+          then
+            userdata.foszoveg[#userdata.foszoveg+1] = {}
+          end
+        end
+      else
+        if 
+          k == "foszoveg"
+        then
+          t = userdata.foszoveg[#userdata.foszoveg]
+        elseif 
+          k == "targymegjeloles" and sor:sub(1,7) == "Tárgy:"
+        then
+          sor = "\\underlinee{Tárgy:} " .. sor:sub(8,#sor)
+        end
+        t[#t+1] = sor
+      end
+      elozo_sor = sor
+    end
+    for 
+      zaro_allapot = 1, #zaro_allapotok
+    do
+      k = zaro_allapotok[#zaro_allapotok + 1 - zaro_allapot]
+      userdata[k] = userdata.foszoveg[#userdata.foszoveg]
+      table.remove(userdata.foszoveg, #userdata.foszoveg)
+    end
+  end
+
+  function userdata.kiir_nemfoszovegszerut(tablanev, elso_sor, utolso_sor)
+    local t = userdata[tablanev]
+    elso_sor = elso_sor or 1
+    utolso_sor = utolso_sor or #t
+    t = {table.unpack(t, elso_sor, utolso_sor)}
+    for 
+      i, sor in ipairs(t)
+    do
+      context(sor)
+      if 
+        i < #t
+      then
+        context("\\break")
+      end
+    end
+  end
+
+  function userdata.kiir_foszovegszerut(tablanev)
+    local t = userdata[tablanev]
+    for 
+      i, paragraph in ipairs(t)
+    do
+      for 
+        j, sor in ipairs(paragraph)
+      do
+        context(sor)
+        if 
+          j < #paragraph
+        then
+          context("\n")
+        end
+      end
+      if 
+        i < #t
+      then
+        context("\n\n")
+      end
+    end
+  end
+
+\stopluacode
+
+%\usemodule[languages-system]
+%\loadinstalledlanguages
+%\showinstalledlanguages
+
+% Beállítom a körülvégott méretet lapméretnek.
+\setuppapersize[A4]
+
+\setuplayout[%
+  header=1.5cc,%
+  footer=3cc,%
+  grid=yes,% Soregyen (Gyurgyák 319. o.).
+  height=\dimexpr56cc+\headerheight+\headerdistance+\footerheight+\footerdistance\relax,%
+  location=middle,%
+  width=36cc,%
+  backspace=\dimexpr0.5\dimexpr\paperwidth-\makeupwidth\relax\relax,%
+  topspace=\dimexpr\dimexpr\paperheight-\makeupheight\relax/2\relax,%
+  leftmargindistance=0.5cc,%
+  rightmargindistance=0.5cc,%
+  leftmargin=1.5cc,%
+  rightmargin=1.5cc,
+]
+
+% Soregyennél a nagy ékezetes soroknál üres sorok keletkeznek,
+% ha az alábbi nincs beállítva.
+% (https://tex.stackexchange.com/questions/343299/when-i-activate-grid-layout-in-context-empty-lines-inexplicably-appear)
+\setupinterlinespace[height=0.75,depth=0.25]
+
+%% Oldalszámozás
+\setupfootertexts[\doifelse\pagenumber1{\doifnot\lastpage1{\currentpage\,/\,\lastpage}}{\currentpage\,/\,\lastpage}]
+\setuppagenumbering[location=]
+
+% Betűkészlet
+\setupbodyfont[libertinus,13pt]
+%\setupbodyfont[13pt]
+%\setupbodyfont[urwgaramond,13pt]
+
+\mainlanguage[hu]
+\language[hu]
+
+
+\setuphyphenation[method=default]  % fontos, hogy így maradjun, különben elrontja a kivételeket
+\setbreakpoints[compound]
+\environment level_hyp
+
+% Bekezdések
+\setupindenting[no]
+\setupwhitespace[line]
+\setuptolerance[vertical,verytolerant]  % https://tex.stackexchange.com/q/264556/50554
+
+% https://tex.stackexchange.com/a/320740/50554
+\define[1]\underlinee{%
+  \dontleavehmode\vbox to0pt{\vss
+    \hrule height.4pt
+    \vskip-\baselineskip \kern2.5pt
+    \hbox{\strut\rlap{\color[white]{\pdfliteral{2 Tr 1.5 w}#1\pdfliteral{0 Tr 0 w}}}#1}
+}}
+
+\defineparagraphs[Zaroresz][
+  after={\relax},
+  before={\relax},
+  n=2,
+  location=depth,
+]
+\setupparagraphs[Zaroresz][1][width=0.5\textwidth]
+\setupparagraphs[Zaroresz][2][width=0.5\textwidth, align=middle]
+
+
+
+
+% Mutatja a szedéstükröt, ha nincs kikommentelve.
+%\showframe
+% Mutatja a rugalmas részeket, ha nincs kikommentelve.
+%\showstruts
+% Mutatja a soregyent, ha nincs kikommentelve.
+%\showgrid[all]
+
+\starttext
+
+\ctxlua{userdata.beolvas()}
+
+\startbodymatter
+
+\startalignment[flushleft]
+
+\noindentation
+\ctxlua{userdata.kiir_nemfoszovegszerut("felado")}
+%\emptylines[1]
+
+\noindentation
+\ctxlua{userdata.kiir_nemfoszovegszerut("cimzett")}
+%\emptylines[1]
+
+\noindentation
+\ctxlua{userdata.kiir_nemfoszovegszerut("targymegjeloles")}
+%\emptylines[1]
+
+\stopalignment
+
+\noindentation 
+\ctxlua{userdata.kiir_nemfoszovegszerut("megszolitas")}
+\blank
+
+\ctxlua{userdata.kiir_foszovegszerut("foszoveg")}
+\blank[\currentvspacing,samepage]  % https://tex.stackexchange.com/a/326445/50554
+\startZaroresz
+\ctxlua{userdata.kiir_nemfoszovegszerut("keltezes")}
+\Zaroresz
+\ctxlua{userdata.kiir_nemfoszovegszerut("udvozlesalairas", 1, 1)}\emptylines[2]
+\inframed[frame=off,align=middle]{\cleaders\hbox to 0.25em{\hss.\hss}\hskip 5cm\zwj}\crlf
+\ctxlua{userdata.kiir_nemfoszovegszerut("udvozlesalairas", 2)}
+\stopZaroresz
+
+\stopbodymatter
+
+\stoptext
+
+\stopproject
