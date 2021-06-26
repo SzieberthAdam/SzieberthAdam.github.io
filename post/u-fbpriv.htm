@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<TITLE>How to download a private video from Facebook?</TITLE>
+<STYLE>
+a {
+color: #b548c9;
+position: relative;
+text-decoration: none;
+}
+a:hover {
+border-bottom: 2px solid #b548c9;
+}
+body {
+  background-color: #000000;
+  color: #ffffff;
+}
+pre {
+display: inherit;
+font-family: monospace;
+font-size: large;
+}
+</STYLE>
+</HEAD>
+<BODY>
+<CENTER><NOBR><PRE>[ <a href="../index.html">Back to the main page</a> ]
+
+
+<u>How to download a private video from Facebook?</u>                  
+
+
+I was not able to find a valid guide on the internet to download
+videos shared in private groups from Facebook.  Thus, I share my
+solution here.                                                  
+
+First, go to the Facebook group page and open developer tools in
+your browser (F12 in Chrome, Ctrl+Shift+I in Opera, etc.). Go to
+Network tab if not already there.                               
+
+Now open your video and you will see an intense  flow of packets
+on the list. Expand the Name column and wait some time. You will
+see that the intensity of  the flow of packets is decreasing and
+what comes are packets with <i>fetch</i> type named weirdly like this: 
+
+10000000_2964034854864626_6255007418487366317_n.mp4...          
+10000000_4461154981160358_4137876297292831253_n.mp4...          
+
+The  actual numbers  are different.  You will need both media as
+video and audio comes separately. If you want  different quality
+then change it and wait again the new pair of fails to appear on
+the list.  Once the  two files are identified,  you can stop the
+video or the network recording.                                 
+
+Next,  do a right click on one of the packets  and copy its link
+address to your clipboard. Open a Notepad and paste it there.   
+
+https://video-vie1-1.xx.fbcdn.net/v/t42.1790-2/10000000_2964034⸗
+854864626_6255007418487366317_n.mp4?_nc_cat=107&ccb=1-3&_nc_sid⸗
+=pUiiuFLHEw=XIDj7JHpFB3ZWs4MyOPqBQMWsM8brs_sdm7z8oE3OtupXexvc_M⸗
+zXzJfYXVkaW8ifQ%3D%3D&_nc_ohc=zMwJrjYrt5V3s-cEu5W&_nc_ht=video-⸗
+vie1-1.xx&oh=7ca38ae15e40bb4d1a4de180981b0ba0&oe=604F3259&bytes⸗
+tart=321267&byteend=402902                                      
+
+I wrapped the link above for readability using (⸗) as hyphen but
+you should keep it in one line. Now you should delete the       
+
+&bytestart=321267&byteend=402902                                
+
+part of the link, and copypaste it back to a new browser tab.   
+
+You can download the media by clicking on the three dots icon in
+the bottom right corner of its frame. Repeat  with the other one
+to have both the audio and video files on your disk.            
+
+Now you should merge them.  For that, you should have <a href="http://www.ffmpeg.org">FFmpeg</a> in-
+stalled on your PC and <i>ffmpeg.exe</i> added to your PATH. With that,
+you can open a command prompt, navigate to your download folder,
+and merge the media files with the following command:           
+
+ffmpeg.exe -i 10000000_2964034854864626_6255007418487366317_n.m⸗
+p4 -i 10000000_4461154981160358_4137876297292831253_n.mp4 -c co⸗
+py out.mp4                                                      
+
+You will get your merged media file in <i>out.mp4</i>.                 
+
+Congratulations!                                                
+
+
+</PRE></NOBR></CENTER>
+</BODY>
+</HTML>
